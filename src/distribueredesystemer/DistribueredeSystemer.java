@@ -5,19 +5,8 @@
  */
 package distribueredesystemer;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import distribueredesystemer.data.Bruger;
+import distribueredesystemer.data.Brugerdatabase;
 
 /**
  *
@@ -25,12 +14,17 @@ import javax.mail.internet.MimeMessage;
  */
 public class DistribueredeSystemer {
 
-	public static void main(String[] args) throws MessagingException {
+	public static void main(String[] args) throws Exception {
 
-		Diverse.sendMail("Testing Subject", "Dear Mail Crawler,"
-				+ "\n\n No spam to my email, please!");
+		Brugerdatabase db = Brugerdatabase.indlæsFraFil();
+		//Diverse.sendMail("Test fra DIST", "Hej fra Jacob");
 
-		System.out.println("Done");
+		for (Bruger b : db.brugere) {
+			System.out.println(Diverse.udskriv(b, new StringBuilder()));
+		}
+
+		System.out.println("Der er: "+db.brugere.size()+" brugere");
+		db.gemTilFil();
 	}
 
 }

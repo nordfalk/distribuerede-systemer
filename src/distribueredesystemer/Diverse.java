@@ -72,7 +72,7 @@ public class Diverse {
 		return out;
 	}
 
-	public static void sendMail(String emne, String tekst) throws MessagingException {
+	public static void sendMail(String emne, String tekst, String modtagere) throws MessagingException {
 		final String afsender = "android.ihk@gmail.com";
 
 		Properties props = new Properties();
@@ -97,7 +97,8 @@ public class Diverse {
 
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(afsender));
-		message.setRecipients(Message.RecipientType.TO,	InternetAddress.parse("jacob.nordfalk@gmail.com"));
+		message.setRecipients(Message.RecipientType.TO,	InternetAddress.parse(modtagere));
+		message.setRecipients(Message.RecipientType.BCC,	InternetAddress.parse("jacob.nordfalk@gmail.com"));
 		message.setSubject(emne);
 		message.setText(tekst);
 

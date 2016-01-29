@@ -1,15 +1,12 @@
-package kapitel_19;
-import java.util.ArrayList;
-import java.rmi.server.UnicastRemoteObject;
+package distribueredesystemer.ws;
 
-public class KontoImpl extends UnicastRemoteObject implements KontoI
-{
+import java.util.ArrayList;
+import javax.jws.WebService;
+
+@WebService(endpointInterface = "kapitel_19_ws.KontoI")
+public class KontoImpl implements KontoI {
 	private int saldo = 100; // man starter med 100 kroner
 	private ArrayList<String> bevægelser = new ArrayList<>();
-
-	public KontoImpl() throws java.rmi.RemoteException 
-	{
-	}
 
 	public void overførsel(int kroner)
 	{

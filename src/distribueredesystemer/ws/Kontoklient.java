@@ -1,4 +1,4 @@
-package kapitel_19_ws;
+package distribueredesystemer.ws;
 
 import java.net.MalformedURLException;
 import java.net.URL;

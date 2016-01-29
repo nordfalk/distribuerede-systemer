@@ -1,4 +1,4 @@
-package kapitel_19_ws;
+package distribueredesystemer.ws;
 import java.util.ArrayList;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
