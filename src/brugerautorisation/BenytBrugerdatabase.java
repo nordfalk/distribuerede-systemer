@@ -17,7 +17,7 @@ import javax.mail.MessagingException;
  */
 public class BenytBrugerdatabase {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 
 		Brugerdatabase db = Brugerdatabase.getInstans();
 		System.out.println("\nDer er "+db.brugere.size()+" brugere i databasen");
@@ -42,7 +42,7 @@ public class BenytBrugerdatabase {
 				brugerautorisation.transport.rmi.Brugeradminserver.main(null);
 			} else
 			if (valg==3) {
-				brugerautorisation.transport.soap.Kontoserver.main(null);
+				brugerautorisation.transport.soap.Brugeradminserver.main(null);
 			} else
 			if (valg==4) {
 				System.out.println("Følgende brugere mangler at skifte deres kode: ");

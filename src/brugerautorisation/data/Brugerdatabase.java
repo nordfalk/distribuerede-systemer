@@ -31,7 +31,7 @@ public class Brugerdatabase implements Serializable {
 	public ArrayList<Bruger> brugere = new ArrayList<>();
 	public transient HashMap<String,Bruger> brugernavnTilBruger = new HashMap<>();
 
-	public static Brugerdatabase getInstans() throws IOException
+	public static Brugerdatabase getInstans()
 	{
 		if (instans!=null) return instans;
 
@@ -43,17 +43,17 @@ public class Brugerdatabase implements Serializable {
 			instans = new Brugerdatabase();
 			Path path = Paths.get("deltagere.html");
 			Scanner scanner = new Scanner(System.in);
-			if (Files.exists(path)) {
+			try {
 				String data = new String(Files.readAllBytes(path));
 				System.out.println("Det ser ud til at du ikke har en brugerdatabase endnu.");
 				System.out.println("Jeg læser nu filen "+path+" og opretter en brugerdatabase fra den");
 				Diverse.parseDeltagerlisteFraCampusnetHtml(data, instans.brugere);
 				instans.gemTilFil();
-			} else {
-				new FileNotFoundException(
-						"Deltagerlisten mangler. Du kan oprette den ved at hente\n"
+			} catch (IOException e2) {
+				e2.printStackTrace();
+				System.err.println("Deltagerlisten mangler vist. Du kan oprette den ved at hente\n"
 						+ "https://www.campusnet.dtu.dk/cnnet/participants/default.aspx?ElementID=508173&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=true&display=listWith&groupby=rights&interval=10000&search="
-						+ "\nog gemme indholdet i filen "+path.toAbsolutePath()).printStackTrace();
+						+ "\nog gemme indholdet i filen "+path.toAbsolutePath());
 				System.err.println("\nDer oprettes nu en enkelt bruger du kan teste med\n(tryk Ctrl-C for at annullere)");
 				Bruger b = new Bruger();
 				System.err.print("Brugernavn: "); b.brugernavn = scanner.nextLine();

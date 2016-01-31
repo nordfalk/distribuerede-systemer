@@ -1,12 +1,14 @@
 package brugerautorisation.transport.soap;
 
+import brugerautorisation.data.Brugerdatabase;
 import java.util.ArrayList;
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "brugerautorisation.transport.soap.KontoI")
-public class KontoImpl implements KontoI {
+@WebService(endpointInterface = "brugerautorisation.transport.soap.Brugeradmin")
+public class BrugeradminImpl implements Brugeradmin {
 	private int saldo = 100; // man starter med 100 kroner
 	private ArrayList<String> bevægelser = new ArrayList<>();
+	Brugerdatabase db;
 
 	public void overførsel(int kroner)
 	{
