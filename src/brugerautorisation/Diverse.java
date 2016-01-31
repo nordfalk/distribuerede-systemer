@@ -9,6 +9,7 @@ import brugerautorisation.data.Bruger;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -26,7 +27,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class Diverse {
 
-	public static void trækBrugereUdFraCampusnetHtml(String data, ArrayList<Bruger> brugere) {
+	public static void parseDeltagerlisteFraCampusnetHtml(String data, ArrayList<Bruger> brugere) {
 		//System.out.println("data="+data);
 		for (String tr : data.split("<tr")) {
 			if (tr.contains("context_header")) continue;
@@ -39,14 +40,14 @@ public class Diverse {
 			System.out.flush();
 			/*
 			0 td= valign="top" class="context_alternating">
-			1 td= height="76" valign="top" rowspan="2"><a href="/cnnet/participants/showperson.aspx?id=190186" class="link"><img src="/cnnet/UserPicture.ashx?x=56&amp;UserId=190186" style="border: 0; width: 56px" alt="" /></a></td>
-			2 td=><p><a href="/cnnet/participants/showperson.aspx?id=190186" class="link">Thor Jørgensen</a> <a href="/cnnet/participants/showperson.aspx?id=190186" class="link">Mortensen</a></p></td>
+			1 td= height="76" valign="top" rowspan="2"><a href="/cnnet/participants/showperson.aspx?campusnetId=190186" class="link"><img src="/cnnet/UserPicture.ashx?x=56&amp;UserId=190186" style="border: 0; width: 56px" alt="" /></a></td>
+			2 td=><p><a href="/cnnet/participants/showperson.aspx?campusnetId=190186" class="link">Thor Jørgensen</a> <a href="/cnnet/participants/showperson.aspx?campusnetId=190186" class="link">Mortensen</a></p></td>
 			3 td=>                 </td>
 			4 td=><p><a href="mailto:s140241@student.dtu.dk" class="link">s140241@student.dtu.dk</a><br /><br /></p></td>
 			5 td=>STADS-tilmeldt<br /><br /><br />diploming. IT elektronik</td></tr>
 			*/
 			Bruger b = new Bruger();
-			b.id = td[1].split("id=")[1].split("\"")[0];
+			b.campusnetId = td[1].split("id=")[1].split("\"")[0];
 			b.fornavn = td[2].split("class=\"link\">")[1].split("<")[0];
 			b.efternavn = td[2].split("class=\"link\">")[2].split("<")[0];
 			b.email = td[4].split("mailto:")[1].split("\"")[0];
@@ -72,7 +73,7 @@ public class Diverse {
 		sb.append(k.getSimpleName()).append(':');
 		for (Field felt : k.getFields()) try {
 			Object værdi = felt.get(obj);
-			sb.append(' ').append(felt.getName()).append('=').append(String.valueOf(værdi));
+			sb.append(' ').append(felt.getName()).append('=').append('"').append(String.valueOf(værdi)).append('"');
 		} catch (Exception e) { e.printStackTrace(); }
 		return sb.toString();
 	}
@@ -91,10 +92,12 @@ public class Diverse {
 		Session session = Session.getInstance(props,
 				new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
+						Path kodefil = Paths.get("gmail-adgangskode.txt");
 						try {
-							String adgangskode = new String(Files.readAllBytes(Paths.get("gmail-adgangskode.txt")));
+							String adgangskode = new String(Files.readAllBytes(kodefil));
 							return new PasswordAuthentication(afsender, adgangskode);
 						} catch (IOException ex) {
+							System.err.println("Du kan ikke sende mails før du har konfigurerer afsender ("+afsender+") til lav sikkerhed:\nhttps://www.google.com/settings/security/lesssecureapps\nog og lagt adgangskoden i "+kodefil);
 							ex.printStackTrace();
 						}
 						return null;

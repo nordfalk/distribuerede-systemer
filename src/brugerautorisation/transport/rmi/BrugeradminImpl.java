@@ -3,10 +3,7 @@ import brugerautorisation.Diverse;
 import brugerautorisation.data.Bruger;
 import brugerautorisation.data.Brugerdatabase;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 
 public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin

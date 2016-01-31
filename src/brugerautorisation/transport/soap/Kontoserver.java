@@ -2,7 +2,7 @@ package brugerautorisation.transport.soap;
 
 import javax.xml.ws.Endpoint;
 
-class Kontoserver {
+public class Kontoserver {
 	public static void main(String[] args) {
 		System.out.println("publicerer kontotjeneste");
 		KontoI k = new KontoImpl();

@@ -41,7 +41,7 @@ public class Brugerdatabase implements Serializable {
 			Path path = Paths.get("deltagere.html");
 			if (Files.exists(path)) {
 				String data = new String(Files.readAllBytes(path));
-				Diverse.trækBrugereUdFraCampusnetHtml(data, db.brugere);
+				Diverse.parseDeltagerlisteFraCampusnetHtml(data, db.brugere);
 				db.gemTilFil();
 				System.out.println("Oprettet: "+db);
 			} else {
