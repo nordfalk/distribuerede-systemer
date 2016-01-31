@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package distribueredesystemer;
+package brugerautorisation;
 
-import distribueredesystemer.data.Bruger;
-import distribueredesystemer.data.Brugerdatabase;
+import brugerautorisation.data.Bruger;
+import brugerautorisation.data.Brugerdatabase;
 
 /**
  *
  * @author j
  */
-public class DistribueredeSystemer {
+public class BenytBrugerdatabase {
 
 	public static void main(String[] args) throws Exception {
 

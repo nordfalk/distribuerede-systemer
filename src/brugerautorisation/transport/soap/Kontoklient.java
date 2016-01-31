@@ -1,4 +1,4 @@
-package distribueredesystemer.transport.ws;
+package brugerautorisation.transport.soap;
 
 import java.net.MalformedURLException;
 import java.net.URL;

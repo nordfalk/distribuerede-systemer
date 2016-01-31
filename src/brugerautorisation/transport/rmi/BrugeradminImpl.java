@@ -1,7 +1,7 @@
-package distribueredesystemer.transport.rmi;
-import distribueredesystemer.Diverse;
-import distribueredesystemer.data.Bruger;
-import distribueredesystemer.data.Brugerdatabase;
+package brugerautorisation.transport.rmi;
+import brugerautorisation.Diverse;
+import brugerautorisation.data.Bruger;
+import brugerautorisation.data.Brugerdatabase;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.rmi.server.UnicastRemoteObject;

@@ -1,4 +1,4 @@
-package distribueredesystemer;
+package brugerautorisation;
 import java.io.*;
 public class Serialisering
 {

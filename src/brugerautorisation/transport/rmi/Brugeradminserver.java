@@ -1,5 +1,5 @@
-package distribueredesystemer.transport.rmi;
-import distribueredesystemer.data.Brugerdatabase;
+package brugerautorisation.transport.rmi;
+import brugerautorisation.data.Brugerdatabase;
 import java.rmi.Naming;
 public class Brugeradminserver
 {

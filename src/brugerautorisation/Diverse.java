@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package distribueredesystemer;
+package brugerautorisation;
 
-import distribueredesystemer.data.Bruger;
+import brugerautorisation.data.Bruger;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;

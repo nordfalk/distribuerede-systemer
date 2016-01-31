@@ -1,4 +1,4 @@
-package distribueredesystemer.transport.ws;
+package brugerautorisation.transport.soap;
 
 import java.util.ArrayList;
 import javax.jws.WebService;

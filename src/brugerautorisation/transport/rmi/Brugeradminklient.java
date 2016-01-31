@@ -1,5 +1,5 @@
-package distribueredesystemer.transport.rmi;
-import distribueredesystemer.data.Bruger;
+package brugerautorisation.transport.rmi;
+import brugerautorisation.data.Bruger;
 import java.rmi.Naming;
 import java.util.ArrayList;
 
@@ -9,9 +9,9 @@ public class Brugeradminklient
 	{
 		//  Brugeradmin k =(Brugeradmin) Naming.lookup("rmi://javabog.dk:20099/kontotjeneste");
 		Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://localhost/brugeradmin");
-    Bruger b = ba.hentBruger("jacno", "kode20gdze");
+    Bruger b = ba.hentBruger("jacno", "kodewsvlo");
 
-    b = ba.ændrAdgangskode("jacno", "kode20gdze", "xxx");
+    b = ba.ændrAdgangskode("jacno", "kodewsvlo", "xxx");
 		ba.sendEmail("jacno", "xxx", "Hurra det virker!", "Jeg er så glad");
 	}
 }

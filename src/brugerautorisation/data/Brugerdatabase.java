@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package distribueredesystemer.data;
+package brugerautorisation.data;
 
-import distribueredesystemer.Diverse;
-import distribueredesystemer.Serialisering;
+import brugerautorisation.Diverse;
+import brugerautorisation.Serialisering;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -60,9 +60,13 @@ public class Brugerdatabase implements Serializable {
 
 	public Bruger hentBruger(String brugernavn, String adgangskode) {
 		Bruger b = brugernavnTilBruger.get(brugernavn);
-		if (b!=null && b.adgangskode.equals(adgangskode)) return b;
-		// Forkert kode - vent lidt for at imødegå bruge force angreb
-		try { Thread.sleep((int)(Math.random()*100));	} catch (Exception ex) { }
+		System.out.println("hentBruger "+brugernavn+" gav "+b);
+		if (b!=null) {
+			System.out.println("         kode="+adgangskode+" b.kode="+b.adgangskode);
+			if (b.adgangskode.equals(adgangskode)) return b;
+		}
+		// Forkert adgangskode - vent lidt for at imødegå bruge force angreb
+		try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }
 		throw new IllegalArgumentException("Forkert brugernavn eller adgangskode");
 	}
 }
