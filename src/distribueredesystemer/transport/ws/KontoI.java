@@ -1,4 +1,4 @@
-package distribueredesystemer.ws;
+package distribueredesystemer.transport.ws;
 import java.util.ArrayList;
 import javax.jws.WebMethod;
 import javax.jws.WebService;

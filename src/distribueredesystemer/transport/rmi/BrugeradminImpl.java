@@ -1,4 +1,4 @@
-package distribueredesystemer.rmi;
+package distribueredesystemer.transport.rmi;
 import distribueredesystemer.Diverse;
 import distribueredesystemer.data.Bruger;
 import distribueredesystemer.data.Brugerdatabase;
@@ -35,10 +35,31 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 	public void sendEmail(String brugernavn, String adgangskode, String emne, String tekst) throws RemoteException {
 		Bruger b = db.hentBruger(brugernavn, adgangskode);
 		try {
-			Diverse.sendMail(emne, tekst, b.email);
+			Diverse.sendMail("DIST: "+emne, tekst, b.email);
 		} catch (MessagingException ex) {
 			ex.printStackTrace();
 			throw new RemoteException("fejl", ex);
 		}
+	}
+
+	@Override
+	public void sendGlemtAdgangskodeEmail(String brugernavn) throws RemoteException {
+		Bruger b = db.brugernavnTilBruger.get(brugernavn);
+		try {
+			Diverse.sendMail("DIST: Din adgangskode ", "Din adgangskode er: "+b.adgangskode, b.email);
+		} catch (MessagingException ex) {
+			ex.printStackTrace();
+			throw new RemoteException("fejl", ex);
+		}
+	}
+
+	@Override
+	public Object getEkstraFelt(String brugernavn, String adgangskode, String feltnavn) throws RemoteException {
+		return db.hentBruger(brugernavn, adgangskode).ekstraFelter.get(feltnavn);
+	}
+
+	@Override
+	public void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi) throws RemoteException {
+		db.hentBruger(brugernavn, adgangskode).ekstraFelter.put(feltnavn, værdi);
 	}
 }

@@ -1,4 +1,4 @@
-package distribueredesystemer.ws;
+package distribueredesystemer.transport.ws;
 
 import javax.xml.ws.Endpoint;
 

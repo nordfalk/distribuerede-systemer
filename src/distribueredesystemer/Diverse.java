@@ -73,6 +73,7 @@ public class Diverse {
 	}
 
 	public static void sendMail(String emne, String tekst, String modtagere) throws MessagingException {
+		// Husk først at sænke sikkerheden på https://www.google.com/settings/security/lesssecureapps
 		final String afsender = "android.ihk@gmail.com";
 
 		Properties props = new Properties();

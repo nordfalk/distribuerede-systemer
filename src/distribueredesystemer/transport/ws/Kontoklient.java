@@ -1,4 +1,4 @@
-package distribueredesystemer.ws;
+package distribueredesystemer.transport.ws;
 
 import java.net.MalformedURLException;
 import java.net.URL;

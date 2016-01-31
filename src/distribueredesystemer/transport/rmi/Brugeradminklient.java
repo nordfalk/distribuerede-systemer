@@ -1,4 +1,4 @@
-package distribueredesystemer.rmi;
+package distribueredesystemer.transport.rmi;
 import distribueredesystemer.data.Bruger;
 import java.rmi.Naming;
 import java.util.ArrayList;

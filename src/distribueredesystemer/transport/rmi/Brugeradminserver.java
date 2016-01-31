@@ -1,4 +1,4 @@
-package distribueredesystemer.rmi;
+package distribueredesystemer.transport.rmi;
 import distribueredesystemer.data.Brugerdatabase;
 import java.rmi.Naming;
 public class Brugeradminserver
@@ -6,7 +6,7 @@ public class Brugeradminserver
 	public static void main(String[] arg) throws Exception
 	{
 		BrugeradminImpl k = new BrugeradminImpl();
-		k.db = Brugerdatabase.indlæsFraFil();
+		k.db = Brugerdatabase.indlæsBrugerdatabase();
 
 		java.rmi.registry.LocateRegistry.createRegistry(1099); // start i server-JVM
 

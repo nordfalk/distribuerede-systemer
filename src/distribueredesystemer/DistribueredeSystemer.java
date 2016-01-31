@@ -16,7 +16,7 @@ public class DistribueredeSystemer {
 
 	public static void main(String[] args) throws Exception {
 
-		Brugerdatabase db = Brugerdatabase.indlæsFraFil();
+		Brugerdatabase db = Brugerdatabase.indlæsBrugerdatabase();
 		//Diverse.sendMail("Test fra DIST", "Hej fra Jacob");
 
 		for (Bruger b : db.brugere) {

@@ -23,23 +23,26 @@ import java.util.logging.Logger;
 public class Brugerdatabase implements Serializable {
 	// Vigtigt: Sæt versionsnummer så objekt kan læses selvom klassen er ændret!
 	private static final long serialVersionUID = 12345; // bare et eller andet nr.
-  public ArrayList<Bruger> brugere = new ArrayList<>();
+
+	public ArrayList<Bruger> brugere = new ArrayList<>();
 	public transient HashMap<String,Bruger> brugernavnTilBruger = new HashMap<>();
 
-	public static Brugerdatabase indlæsFraFil() throws IOException
+	public static Brugerdatabase indlæsBrugerdatabase() throws IOException
 	{
 		Brugerdatabase db;
 		try {
 			db = (Brugerdatabase) Serialisering.hent("brugere.ser");
+			db.brugernavnTilBruger = new HashMap<>();
 			System.out.println("Læst: "+db);
 		} catch (Exception e) {
 			db = new Brugerdatabase();
 			System.out.println("Oprettet: "+db);
-			// Hentes fra https://www.campusnet.dtu.dk/cnnet/participants/default.aspx?ElementID=508173&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=true&display=listWith&groupby=rights&interval=10000&search=
+			// Hent data fra https://www.campusnet.dtu.dk/cnnet/participants/default.aspx?ElementID=508173&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=true&display=listWith&groupby=rights&interval=10000&search=
 			String data = new String(Files.readAllBytes(Paths.get("deltagere.html")));
 			Diverse.trækBrugereUdFraCampusnetHtml(data, db.brugere);
 			db.gemTilFil();
 		}
+		// Gendan de transiente felter
 		for (Bruger b : db.brugere) {
 			db.brugernavnTilBruger.put(b.brugernavn, b);
 		}
@@ -58,6 +61,8 @@ public class Brugerdatabase implements Serializable {
 	public Bruger hentBruger(String brugernavn, String adgangskode) {
 		Bruger b = brugernavnTilBruger.get(brugernavn);
 		if (b!=null && b.adgangskode.equals(adgangskode)) return b;
+		// Forkert kode - vent lidt for at imødegå bruge force angreb
+		try { Thread.sleep((int)(Math.random()*100));	} catch (Exception ex) { }
 		throw new IllegalArgumentException("Forkert brugernavn eller adgangskode");
 	}
 }
