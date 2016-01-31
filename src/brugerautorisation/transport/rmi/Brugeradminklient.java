@@ -9,9 +9,12 @@ public class Brugeradminklient
 	{
 		//  Brugeradmin k =(Brugeradmin) Naming.lookup("rmi://javabog.dk:20099/kontotjeneste");
 		Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://localhost/brugeradmin");
-    Bruger b = ba.hentBruger("jacno", "kodewsvlo");
+    ba.sendGlemtAdgangskodeEmail("jacno");
+		/*
+    Bruger b = ba.hentBruger("jacno", "xxx");
 
-    b = ba.ændrAdgangskode("jacno", "kodewsvlo", "xxx");
+    b = ba.ændrAdgangskode("jacno", "xxx", "xxx");
 		ba.sendEmail("jacno", "xxx", "Hurra det virker!", "Jeg er så glad");
+				*/
 	}
 }

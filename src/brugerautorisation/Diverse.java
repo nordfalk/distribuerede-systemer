@@ -56,20 +56,25 @@ public class Diverse {
 			b.adgangskode = "kode"+Integer.toString((int)(Math.random()*Integer.MAX_VALUE), Character.MAX_RADIX);
 
 			//udskriv(b, System.out);
-			System.out.println("Oprettet:" + udskriv(b, new StringBuilder()));
+			System.out.println("Oprettet:" + toString(b));
 			brugere.add(b);
 		}
 	}
 
-
-	public static Appendable udskriv(Object obj, Appendable out) {
+/**
+	* Tager et vilkårligt objekt og laver en streng ud af dets public variabler
+	* @param obj Objektet
+	* @return En streng med alle dets public variabler
+	*/
+	public static String toString(Object obj) {
+		StringBuilder sb = new StringBuilder();
 		Class k = obj.getClass();
-		//out.append(k.getSimpleName()).append(':');
+		sb.append(k.getSimpleName()).append(':');
 		for (Field felt : k.getFields()) try {
 			Object værdi = felt.get(obj);
-			out.append(' ').append(felt.getName()).append('=').append(String.valueOf(værdi));
+			sb.append(' ').append(felt.getName()).append('=').append(String.valueOf(værdi));
 		} catch (Exception e) { e.printStackTrace(); }
-		return out;
+		return sb.toString();
 	}
 
 	public static void sendMail(String emne, String tekst, String modtagere) throws MessagingException {

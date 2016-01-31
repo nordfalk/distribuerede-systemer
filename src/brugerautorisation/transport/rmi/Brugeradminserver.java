@@ -5,8 +5,9 @@ public class Brugeradminserver
 {
 	public static void main(String[] arg) throws Exception
 	{
+		Brugerdatabase db = Brugerdatabase.indlæsBrugerdatabase();
 		BrugeradminImpl k = new BrugeradminImpl();
-		k.db = Brugerdatabase.indlæsBrugerdatabase();
+		k.db = db;
 
 		java.rmi.registry.LocateRegistry.createRegistry(1099); // start i server-JVM
 
