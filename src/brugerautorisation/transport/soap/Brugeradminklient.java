@@ -1,5 +1,7 @@
 package brugerautorisation.transport.soap;
 
+import brugerautorisation.Diverse;
+import brugerautorisation.data.Bruger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,15 +18,16 @@ public class Brugeradminklient {
 		QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
 		Service service = Service.create(url, qname);
 		Brugeradmin ba = service.getPort(Brugeradmin.class);
-    
-    ba.overførsel(100);
-    ba.overførsel(50);
-		System.out.println( "Saldo er: "+ ba.saldo() );
-		ba.overførsel(-200);
-		ba.overførsel(51);
-		System.out.println( "Saldo er: "+ ba.saldo() );
-		ArrayList<String> bevægelser = ba.bevægelser();
 
-		System.out.println( "Bevægelser er: "+ bevægelser );
+    //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
+		//ba.ændrAdgangskode("jacno", "kodenj4gvs", "xxx");
+		Bruger b = ba.hentBruger("jacno", "xxx");
+		System.out.println("Fik bruger = " + b);
+		System.out.println("Data: " + Diverse.toString(b));
+		// ba.sendEmail("jacno", "xxx", "Hurra det virker!", "Jeg er så glad");
+		ba.setEkstraFelt("jacno", "xxx", "s123456_testfelt", "Jeg er så glad");
+		Object ekstraFelt = ba.getEkstraFelt("jacno", "xxx", "s123456_testfelt");
+		System.out.println("Fik ekstraFelt = " + ekstraFelt);
+
 	}
 }

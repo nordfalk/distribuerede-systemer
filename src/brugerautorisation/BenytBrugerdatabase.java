@@ -55,9 +55,9 @@ public class BenytBrugerdatabase {
 
 				for (Bruger b : db.brugere) {
 					try {
-						Diverse.sendMail("DIST: Din adgangskode ",
+						Diverse.sendMail("DIST: Din adgangskode",
 								"Kære "+b.fornavn+",\n\nDin adgangskode er: "+b.adgangskode
-								+"\n\nDu skal skifte den snarest for at bevise at du følger kurset.\nSe hvordan på https://docs.google.com/document/d/1ZtbPbPrEKwSu32-SSmtcSWSQaeFid8YQI5FpI35Jkb0/edit?usp=sharing \n"
+								+"\n\nDu skal skifte den snarest som en del af kurset.\nSe hvordan på https://docs.google.com/document/d/1ZtbPbPrEKwSu32-SSmtcSWSQaeFid8YQI5FpI35Jkb0/edit?usp=sharing \n"
 								+"\n\n"+forklarendeTekst,
 								b.email);
 					} catch (MessagingException ex) {
