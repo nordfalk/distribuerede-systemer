@@ -26,7 +26,7 @@ interface Brugeradmin extends java.rmi.Remote
 	*/
 	void sendEmail(String brugernavn, String adgangskode, String emne, String tekst) throws java.rmi.RemoteException;
 
-	void sendGlemtAdgangskodeEmail(String brugernavn) throws java.rmi.RemoteException;
+	void sendGlemtAdgangskodeEmail(String brugernavn, String følgetekst) throws java.rmi.RemoteException;
 
 	Object getEkstraFelt(String brugernavn, String adgangskode, String feltnavn) throws java.rmi.RemoteException;
 

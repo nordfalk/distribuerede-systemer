@@ -9,7 +9,7 @@ public class Brugeradminklient
 	{
 		//  Brugeradmin k =(Brugeradmin) Naming.lookup("rmi://javabog.dk:20099/kontotjeneste");
 		Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://localhost/brugeradmin");
-    ba.sendGlemtAdgangskodeEmail("jacno");
+    ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
 		/*
     Bruger b = ba.hentBruger("jacno", "xxx");
 

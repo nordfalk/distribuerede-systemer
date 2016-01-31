@@ -5,7 +5,7 @@ public class Brugeradminserver
 {
 	public static void main(String[] arg) throws Exception
 	{
-		Brugerdatabase db = Brugerdatabase.indlæsBrugerdatabase();
+		Brugerdatabase db = Brugerdatabase.getInstans();
 		BrugeradminImpl k = new BrugeradminImpl();
 		k.db = db;
 
@@ -17,7 +17,8 @@ public class Brugeradminserver
 }
 /* Overfør til server med f.eks.:
 
-scp /home/j/DistribueredeSystemer/DistribueredeSystemer/dist/DistribueredeSystemer.jar javabog.dk:DistribueredeSystemer
+cd /home/j/DistribueredeSystemer/DistribueredeSystemer/
+rsync dist/* deltagere.html javabog.dk:DistribueredeSystemer/
 
 // På serveren javabog.dk - start med f.eks.:
 java -Djava.rmi.server.hostname=javabog.dk -cp DistribueredeSystemer/DistribueredeSystemer.jar kapitel_19.Brugeradminserver

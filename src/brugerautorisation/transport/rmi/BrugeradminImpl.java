@@ -40,10 +40,14 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 	}
 
 	@Override
-	public void sendGlemtAdgangskodeEmail(String brugernavn) throws RemoteException {
+	public void sendGlemtAdgangskodeEmail(String brugernavn, String forklarendeTekst) throws RemoteException {
 		Bruger b = db.brugernavnTilBruger.get(brugernavn);
 		try {
-			Diverse.sendMail("DIST: Din adgangskode ", "Din adgangskode er: "+b.adgangskode, b.email);
+			Diverse.sendMail("DIST: Din adgangskode ", 
+					"Kære "+b.fornavn+",\n\nDin adgangskode er: "+b.adgangskode
+					+(b.sidstAktiv>0?"":"\n\nDu skal skifte den snarest for at bevise at du følger kurset.\nSe hvordan på https://docs.google.com/document/d/1ZtbPbPrEKwSu32-SSmtcSWSQaeFid8YQI5FpI35Jkb0/edit?usp=sharing \n")
+					+"\n\n"+forklarendeTekst,
+					b.email);
 		} catch (MessagingException ex) {
 			ex.printStackTrace();
 			throw new RemoteException("fejl", ex);

@@ -25,25 +25,27 @@ import java.util.logging.Logger;
 public class Brugerdatabase implements Serializable {
 	// Vigtigt: Sæt versionsnummer så objekt kan læses selvom klassen er ændret!
 	private static final long serialVersionUID = 12345; // bare et eller andet nr.
+	private static Brugerdatabase instans;
 
 	public ArrayList<Bruger> brugere = new ArrayList<>();
 	public transient HashMap<String,Bruger> brugernavnTilBruger = new HashMap<>();
 
-	public static Brugerdatabase indlæsBrugerdatabase() throws IOException
+	public static Brugerdatabase getInstans() throws IOException
 	{
-		Brugerdatabase db;
+		if (instans!=null) return instans;
+
 		try {
-			db = (Brugerdatabase) Serialisering.hent("brugere.ser");
-			db.brugernavnTilBruger = new HashMap<>();
-			System.out.println("Læst: "+db);
+			instans = (Brugerdatabase) Serialisering.hent("brugere.ser");
+			instans.brugernavnTilBruger = new HashMap<>();
+			System.out.println("Indlæste serialiseret Brugerdatabase: "+instans);
 		} catch (Exception e) {
-			db = new Brugerdatabase();
+			instans = new Brugerdatabase();
 			Path path = Paths.get("deltagere.html");
 			if (Files.exists(path)) {
 				String data = new String(Files.readAllBytes(path));
-				Diverse.parseDeltagerlisteFraCampusnetHtml(data, db.brugere);
-				db.gemTilFil();
-				System.out.println("Oprettet: "+db);
+				Diverse.parseDeltagerlisteFraCampusnetHtml(data, instans.brugere);
+				instans.gemTilFil();
+				System.out.println("Oprettet Brugerdatabase fra "+path+": "+instans);
 			} else {
 				new FileNotFoundException(
 						"Deltagerlisten mangler. Du kan oprette den ved at hente\n"
@@ -52,16 +54,16 @@ public class Brugerdatabase implements Serializable {
 				Bruger b = new Bruger();
 				b.brugernavn = "s123456";
 				b.adgangskode = "xxx";
-				db.brugere.add(b);
-				System.err.println("Fortsætter, med brugeren "+Diverse.toString(b));
-				try {	Thread.sleep(500); } catch (InterruptedException ex) {}
+				instans.brugere.add(b);
+				System.err.println("Fortsætter, med Brugerdatabase med en enkelt bruger: "+Diverse.toString(b));
+				try {	Thread.sleep(2000); } catch (InterruptedException ex) {}
 			}
 		}
 		// Gendan de transiente felter
-		for (Bruger b : db.brugere) {
-			db.brugernavnTilBruger.put(b.brugernavn, b);
+		for (Bruger b : instans.brugere) {
+			instans.brugernavnTilBruger.put(b.brugernavn, b);
 		}
-		return db;
+		return instans;
 	}
 
 	public void gemTilFil() {
