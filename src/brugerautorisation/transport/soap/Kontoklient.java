@@ -13,7 +13,7 @@ import javax.xml.ws.Service;
 public class Kontoklient {
 	public static void main(String[] args) throws MalformedURLException {
 		URL url = new URL("http://localhost:9901/kontotjeneste?wsdl");
-		QName qname = new QName("http://kapitel_19_ws/", "KontoImplService");
+		QName qname = new QName("http://soap.transport.brugerautorisation/", "KontoImplService");
 		Service service = Service.create(url, qname);
 		KontoI k = service.getPort(KontoI.class);
     

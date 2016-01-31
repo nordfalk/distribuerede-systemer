@@ -18,13 +18,10 @@ public class Brugeradminserver
 /* Overfør til server med f.eks.:
 
 cd /home/j/DistribueredeSystemer/DistribueredeSystemer/
-rsync dist/* deltagere.html javabog.dk:DistribueredeSystemer/
+ant -q
+rsync -a dist/* deltagere.html gmail-adgangskode.txt  javabog.dk:DistribueredeSystemer/
 
-// På serveren javabog.dk - start med f.eks.:
-java -Djava.rmi.server.hostname=javabog.dk -cp DistribueredeSystemer/DistribueredeSystemer.jar kapitel_19.Brugeradminserver
-
-		java.rmi.registry.LocateRegistry.createRegistry(20099); // lyt på port 20099
-		Brugeradmin k = new BrugeradminImpl();
-		System.setProperty("java.rmi.server.hostname", "javabog.dk");
-		Naming.rebind("rmi://javabog.dk:20099/kontotjeneste", k);
+// På serveren javabog.dk - start med
+cd DistribueredeSystemer
+java -jar DistribueredeSystemer.jar
 */

@@ -3,7 +3,7 @@ package brugerautorisation.transport.soap;
 import java.util.ArrayList;
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "kapitel_19_ws.KontoI")
+@WebService(endpointInterface = "brugerautorisation.transport.soap.KontoI")
 public class KontoImpl implements KontoI {
 	private int saldo = 100; // man starter med 100 kroner
 	private ArrayList<String> bevægelser = new ArrayList<>();

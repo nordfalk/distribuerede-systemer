@@ -7,14 +7,15 @@ public class Brugeradminklient
 {
 	public static void main(String[] arg) throws Exception
 	{
-		//  Brugeradmin k =(Brugeradmin) Naming.lookup("rmi://javabog.dk:20099/kontotjeneste");
-		Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://localhost/brugeradmin");
-    ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
+//		Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://localhost/brugeradmin");
+		Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
+    //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
+    //ba.ændrAdgangskode("jacno", "kodeplmew", "xxx");
+    Bruger b = ba.hentBruger("jacno", "xxx");
+		System.out.println("Fik bruger = "+b);
 		/*
     Bruger b = ba.hentBruger("jacno", "xxx");
-
-    b = ba.ændrAdgangskode("jacno", "xxx", "xxx");
 		ba.sendEmail("jacno", "xxx", "Hurra det virker!", "Jeg er så glad");
-				*/
+		*/
 	}
 }
