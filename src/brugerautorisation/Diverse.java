@@ -27,41 +27,6 @@ import javax.mail.internet.MimeMessage;
  */
 public class Diverse {
 
-	public static void parseDeltagerlisteFraCampusnetHtml(String data, ArrayList<Bruger> brugere) {
-		//System.out.println("data="+data);
-		for (String tr : data.split("<tr")) {
-			if (tr.contains("context_header")) continue;
-			String td[] = tr.split("<td");
-			if (td.length!=6) continue; // Der er 6 kolonner i det, vi er interesserede i
-			System.out.println("tr="+tr.replace('\n', ' '));
-			for (String tde : td) {
-				System.out.println("td="+tde.replace('\n', ' '));
-			}
-			System.out.flush();
-			/*
-			0 td= valign="top" class="context_alternating">
-			1 td= height="76" valign="top" rowspan="2"><a href="/cnnet/participants/showperson.aspx?campusnetId=190186" class="link"><img src="/cnnet/UserPicture.ashx?x=56&amp;UserId=190186" style="border: 0; width: 56px" alt="" /></a></td>
-			2 td=><p><a href="/cnnet/participants/showperson.aspx?campusnetId=190186" class="link">Thor Jørgensen</a> <a href="/cnnet/participants/showperson.aspx?campusnetId=190186" class="link">Mortensen</a></p></td>
-			3 td=>                 </td>
-			4 td=><p><a href="mailto:s140241@student.dtu.dk" class="link">s140241@student.dtu.dk</a><br /><br /></p></td>
-			5 td=>STADS-tilmeldt<br /><br /><br />diploming. IT elektronik</td></tr>
-			*/
-			Bruger b = new Bruger();
-			b.campusnetId = td[1].split("id=")[1].split("\"")[0];
-			b.fornavn = td[2].split("class=\"link\">")[1].split("<")[0];
-			b.efternavn = td[2].split("class=\"link\">")[2].split("<")[0];
-			b.email = td[4].split("mailto:")[1].split("\"")[0];
-			if (b.email.contains("@dtu.dk") && !b.email.contains("jacno@dtu.dk")) continue; // drom adm personale
-			b.brugernavn = b.email.split("@")[0];
-			b.studeretning = td[5].substring(1).replaceAll("<[^>]+>", "").replace("STADS-tilmeldt","").replace("diploming. ","").trim();
-			b.adgangskode = "kode"+Integer.toString((int)(Math.random()*Integer.MAX_VALUE), Character.MAX_RADIX);
-
-			//udskriv(b, System.out);
-			System.out.println("Oprettet:" + toString(b));
-			brugere.add(b);
-		}
-	}
-
 /**
 	* Tager et vilkårligt objekt og laver en streng ud af dets public variabler
 	* @param obj Objektet

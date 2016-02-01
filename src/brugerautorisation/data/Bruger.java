@@ -9,12 +9,12 @@ public class Bruger implements Serializable
 	public String brugernavn; // studienummer
 	public String adgangskode;
 	public String email = "hvad@ved.jeg.dk";
-  public String fornavn = "test";
-  public String efternavn = "testesen";
-  public String studeretning = "ukendt";
   public String campusnetId; // campusnet database-ID
 	public long sidstAktiv;
   public HashMap<String,Object> ekstraFelter = new HashMap<>();
+  public String studeretning = "ukendt";
+  public String fornavn = "test";
+  public String efternavn = "testesen";
 
 
 	public String toString()
