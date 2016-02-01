@@ -8,6 +8,7 @@ package brugerautorisation;
 import brugerautorisation.data.Bruger;
 import brugerautorisation.data.Brugerdatabase;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.mail.MessagingException;
 
@@ -31,6 +32,7 @@ public class BenytBrugerdatabase {
 			System.out.println("3 Start SOAP server");
 			System.out.println("4 Send mail til alle brugere, der ikke har ændret deres kode endnu");
 			System.out.println("9 Gem databasen og stop programmet");
+			System.out.print("Skriv valg: ");
 			int valg = scanner.nextInt();
 			scanner.nextLine();
 			if (valg==1) {
@@ -45,25 +47,29 @@ public class BenytBrugerdatabase {
 				brugerautorisation.transport.soap.Brugeradminserver.main(null);
 			} else
 			if (valg==4) {
-				System.out.println("Følgende brugere mangler at skifte deres kode: ");
+				ArrayList<Bruger> mglBru = new ArrayList<>();
 				for (Bruger b : db.brugere) {
 					if (b.sidstAktiv > 0) continue;
-					System.out.println(Diverse.toString(b));
+					mglBru.add(b);
 				}
+				System.out.println("Der er "+mglBru.size()+" brugere, der mangler at skifte deres kode.");
+				System.out.println("Det er: "+mglBru);
 				System.out.println("Skriv en linje med forklarende tekst");
 				String forklarendeTekst = scanner.nextLine();
+				System.out.println("Er du SIKKER på at du vil sende "+forklarendeTekst+" til "+mglBru.size()+" brugere?");
+				System.out.print("Skriv JA: ");
+				String accept = scanner.nextLine().trim();
+				if (!accept.equals("JA")) {
+					System.out.println("Afbrudt med "+accept);
+					continue;
+				}
 
-				for (Bruger b : db.brugere) {
-					try {
-						Diverse.sendMail("DIST: Din adgangskode ",
-								"Kære "+b.fornavn+",\n\nDin adgangskode er: "+b.adgangskode
-								+"\n\nDu skal skifte den snarest som en del af kurset.\nSe hvordan på https://docs.google.com/document/d/1ZtbPbPrEKwSu32-SSmtcSWSQaeFid8YQI5FpI35Jkb0/edit?usp=sharing \n"
-								+"\n\n"+forklarendeTekst,
-								b.email);
-					} catch (MessagingException ex) {
-						ex.printStackTrace();
-						throw new RemoteException("fejl", ex);
-					}
+				for (Bruger b : mglBru) {
+					Diverse.sendMail("DIST: Din adgangskode ",
+							"Kære "+b.fornavn+",\n\nDin adgangskode er: "+b.adgangskode
+							+"\n\nDu skal skifte den som en del af kurset.\nSe hvordan på https://docs.google.com/document/d/1ZtbPbPrEKwSu32-SSmtcSWSQaeFid8YQI5FpI35Jkb0/edit?usp=sharing \n"
+							+"\n\n"+forklarendeTekst,
+							b.email);
 				}
 			} else
 			if (valg==9) {
