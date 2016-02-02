@@ -15,8 +15,10 @@ public class Brugeradminklient {
 		System.out.println("Fik bruger = " + b);
 		System.out.println("Data: " + Diverse.toString(b));
 		// ba.sendEmail("jacno", "xxx", "Hurra det virker!", "Jeg er så glad");
-		ba.setEkstraFelt("jacno", "xxx", "s123456_testfelt", "Jeg er så glad");
+
 		Object ekstraFelt = ba.getEkstraFelt("jacno", "xxx", "s123456_testfelt");
 		System.out.println("Fik ekstraFelt = " + ekstraFelt);
+
+		ba.setEkstraFelt("jacno", "xxx", "s123456_testfelt", "Hej fra Jacob"); // Skriv noget andet her
 	}
 }
