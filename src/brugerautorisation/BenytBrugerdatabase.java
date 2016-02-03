@@ -65,11 +65,14 @@ public class BenytBrugerdatabase {
 				}
 
 				for (Bruger b : mglBru) {
-					Diverse.sendMail("DIST: Din adgangskode ",
-							"Kære "+b.fornavn+",\n\nDin adgangskode er: "+b.adgangskode
-							+"\n\nDu skal skifte den som en del af kurset.\nSe hvordan på https://docs.google.com/document/d/1ZtbPbPrEKwSu32-SSmtcSWSQaeFid8YQI5FpI35Jkb0/edit?usp=sharing \n"
-							+"\n\n"+forklarendeTekst,
+					Diverse.sendMail("DIST: Din adgangskode skal skiftes",
+							"Kære "+b.fornavn+"\n\nDu skal skifte adgangskoden som en del af kurset i Distribuerede Systemer."
+							+"\n\nDit brugernavn er "+b.brugernavn+" og din midlertidige adgangskode er: "+b.adgangskode
+							+"\n\nSe hvordan du skifter koden på https://docs.google.com/document/d/1ZtbPbPrEKwSu32-SSmtcSWSQaeFid8YQI5FpI35Jkb0/edit?usp=sharing \n"
+							+"\n\n"+forklarendeTekst
+							+"\n\nBesked sendt p.v.a. underviseren - Jacob Nordfalk (jacno@dtu.dk)",
 							b.email);
+					Thread.sleep(1000);
 				}
 			} else
 			if (valg==9) {

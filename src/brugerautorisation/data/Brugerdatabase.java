@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -24,6 +25,9 @@ public class Brugerdatabase implements Serializable {
 	// Vigtigt: Sæt versionsnummer så objekt kan læses selvom klassen er ændret!
 	private static final long serialVersionUID = 12345; // bare et eller andet nr.
 	private static Brugerdatabase instans;
+	private static final String SERIALISERET_FIL = "brugere.ser";
+	private static final Path SIKKERHEDSKOPI = Paths.get("sikkerhedskopi");
+	private static long filSidstGemt;
 
 	public ArrayList<Bruger> brugere = new ArrayList<>();
 	public transient HashMap<String,Bruger> brugernavnTilBruger = new HashMap<>();
@@ -33,7 +37,7 @@ public class Brugerdatabase implements Serializable {
 		if (instans!=null) return instans;
 
 		try {
-			instans = (Brugerdatabase) Serialisering.hent("brugere.ser");
+			instans = (Brugerdatabase) Serialisering.hent(SERIALISERET_FIL);
 			instans.brugernavnTilBruger = new HashMap<>();
 			System.out.println("Indlæste serialiseret Brugerdatabase: "+instans);
 		} catch (Exception e) {
@@ -107,8 +111,15 @@ public class Brugerdatabase implements Serializable {
 
 
 	public void gemTilFil() {
+		if (filSidstGemt>System.currentTimeMillis()-60000) return; // Gem højst 1 gang per minut
+		// Lav en sikkerhedskopi - i fald der skal rulles tilbage eller filen blir beskadiget
 		try {
-			Serialisering.gem(this, "brugere.ser");
+			if (!Files.exists(SIKKERHEDSKOPI)) Files.createDirectories(SIKKERHEDSKOPI);
+			Files.move(Paths.get(SERIALISERET_FIL), SIKKERHEDSKOPI.resolve(SERIALISERET_FIL+new Date()));
+		} catch (IOException e) { e.printStackTrace(); }
+		try {
+			Serialisering.gem(this, SERIALISERET_FIL);
+			filSidstGemt = System.currentTimeMillis();
 			System.out.println("Gemt brugerne");
 		} catch (IOException ex) {
 			ex.printStackTrace();

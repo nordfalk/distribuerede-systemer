@@ -46,7 +46,7 @@ public class Diverse {
 	public static void sendMail(String emne, String tekst, String modtagere) throws MessagingException {
 		// Husk først at sænke sikkerheden på https://www.google.com/settings/security/lesssecureapps
 		final String afsender = "android.ihk@gmail.com";
-		System.out.println("sendMail "+emne+ " "+modtagere);
+		System.out.println("sendMail "+emne+ " "+modtagere+" "+tekst.replace('\n', ' '));
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -73,7 +73,7 @@ public class Diverse {
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(afsender));
 		message.setRecipients(Message.RecipientType.TO,	InternetAddress.parse(modtagere));
-		message.setRecipients(Message.RecipientType.BCC,	InternetAddress.parse("jacob.nordfalk@gmail.com"));
+		message.setRecipients(Message.RecipientType.CC,	InternetAddress.parse("jacob.nordfalk@gmail.com"));
 		message.setSubject(emne);
 		message.setText(tekst);
 
