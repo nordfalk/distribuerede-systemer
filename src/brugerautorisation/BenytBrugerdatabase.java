@@ -1,35 +1,38 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Idriftsættelse
+ant -q; rsync -a dist/* deltagere.html gmail-adgangskode.txt  javabog.dk:DistribueredeSystemer/
+
  */
 package brugerautorisation;
 
 import brugerautorisation.data.Bruger;
 import brugerautorisation.data.Brugerdatabase;
-import java.rmi.RemoteException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.mail.MessagingException;
 
 /**
- *
+ * Hovedprogrammet på serveren
  * @author j
  */
 public class BenytBrugerdatabase {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		Brugerdatabase db = Brugerdatabase.getInstans();
 		System.out.println("\nDer er "+db.brugere.size()+" brugere i databasen");
+
+		brugerautorisation.transport.rmi.Brugeradminserver.main(null);
+		brugerautorisation.transport.soap.Brugeradminserver.main(null);
 
 		Scanner scanner = new Scanner(System.in); // opret scanner-objekt
 
 		while (true) try {
 			System.out.println();
 			System.out.println("1 Udskriv brugere");
-			System.out.println("2 Start RMI server");
-			System.out.println("3 Start SOAP server");
+			System.out.println("2 Generer kommasepareret fil med brugere");
+			//System.out.println("2 Start RMI server");
+			//System.out.println("3 Start SOAP server");
 			System.out.println("4 Send mail til alle brugere, der ikke har ændret deres kode endnu");
 			System.out.println("9 Gem databasen og stop programmet");
 			System.out.print("Skriv valg: ");
@@ -41,10 +44,11 @@ public class BenytBrugerdatabase {
 				}
 			} else
 			if (valg==2) {
-				brugerautorisation.transport.rmi.Brugeradminserver.main(null);
+				for (Bruger b : db.brugere) {
+					System.out.println(Diverse.tilCsvLinje(b));
+				}
 			} else
 			if (valg==3) {
-				brugerautorisation.transport.soap.Brugeradminserver.main(null);
 			} else
 			if (valg==4) {
 				ArrayList<Bruger> mglBru = new ArrayList<>();
@@ -84,7 +88,7 @@ public class BenytBrugerdatabase {
 
 		//db.gemTilFil();
 		System.out.println("Afslutter programmet... ");
-		db.gemTilFil();
+		db.gemTilFil(true);
 		System.exit(0);
 	}
 

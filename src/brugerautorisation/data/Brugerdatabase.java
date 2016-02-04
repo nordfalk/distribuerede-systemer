@@ -110,8 +110,8 @@ public class Brugerdatabase implements Serializable {
 	}
 
 
-	public void gemTilFil() {
-		if (filSidstGemt>System.currentTimeMillis()-60000) return; // Gem højst 1 gang per minut
+	public void gemTilFil(boolean tvingSkrivning) {
+		if (!tvingSkrivning && filSidstGemt>System.currentTimeMillis()-60000) return; // Gem højst 1 gang per minut
 		// Lav en sikkerhedskopi - i fald der skal rulles tilbage eller filen blir beskadiget
 		try {
 			if (!Files.exists(SIKKERHEDSKOPI)) Files.createDirectories(SIKKERHEDSKOPI);
@@ -120,7 +120,7 @@ public class Brugerdatabase implements Serializable {
 		try {
 			Serialisering.gem(this, SERIALISERET_FIL);
 			filSidstGemt = System.currentTimeMillis();
-			System.out.println("Gemt brugerne");
+			System.out.println("Gemt brugerne pr "+new Date());
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

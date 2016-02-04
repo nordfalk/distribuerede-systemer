@@ -21,7 +21,7 @@ public class BrugeradminImpl implements Brugeradmin {
 	public Bruger ændrAdgangskode(String brugernavn, String adgangskode, String nyAdgangskode) {
 		Bruger b = db.hentBruger(brugernavn, adgangskode);
 		b.adgangskode = nyAdgangskode;
-		db.gemTilFil();
+		db.gemTilFil(false);
 		return b;
 	}
 
@@ -59,5 +59,6 @@ public class BrugeradminImpl implements Brugeradmin {
 	@Override
 	public void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi) {
 		db.hentBruger(brugernavn, adgangskode).ekstraFelter.put(feltnavn, værdi);
+		db.gemTilFil(false);
 	}
 }

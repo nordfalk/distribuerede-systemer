@@ -43,6 +43,21 @@ public class Diverse {
 		return sb.toString();
 	}
 
+/**
+	* Tager et vilkårligt objekt og laver en kommasepareret streng med dets data
+	* @param obj Objektet
+	* @return En streng kommasepareret streng med dets data
+	*/
+	public static String tilCsvLinje(Object obj) {
+		StringBuilder sb = new StringBuilder();
+		Class k = obj.getClass();
+		for (Field felt : k.getFields()) try {
+			Object værdi = felt.get(obj);
+			sb.append('"').append(String.valueOf(værdi).replaceAll("\"", "\\\"").replaceAll("\n", "\\n")).append('"').append(',');
+		} catch (Exception e) { e.printStackTrace(); }
+		return sb.substring(0,sb.length()-1); // fjern sidste komma
+	}
+
 	public static void sendMail(String emne, String tekst, String modtagere) throws MessagingException {
 		// Husk først at sænke sikkerheden på https://www.google.com/settings/security/lesssecureapps
 		final String afsender = "android.ihk@gmail.com";
