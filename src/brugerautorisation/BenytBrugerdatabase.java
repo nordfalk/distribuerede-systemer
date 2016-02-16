@@ -31,8 +31,7 @@ public class BenytBrugerdatabase {
 			System.out.println();
 			System.out.println("1 Udskriv brugere");
 			System.out.println("2 Generer kommasepareret fil med brugere");
-			//System.out.println("2 Start RMI server");
-			//System.out.println("3 Start SOAP server");
+			System.out.println("3 Generer brugernavne og adgangskode");
 			System.out.println("4 Send mail til alle brugere, der ikke har ændret deres kode endnu");
 			System.out.println("9 Gem databasen og stop programmet");
 			System.out.print("Skriv valg: ");
@@ -49,6 +48,9 @@ public class BenytBrugerdatabase {
 				}
 			} else
 			if (valg==3) {
+				for (Bruger b : db.brugere) {
+					System.out.println("sudo useradd -m -p `mkpasswd '"+b.adgangskode+"'` "+b.brugernavn+"; sudo adduser "+b.brugernavn+" sudo");
+				}
 			} else
 			if (valg==4) {
 				ArrayList<Bruger> mglBru = new ArrayList<>();
