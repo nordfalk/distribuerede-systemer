@@ -16,11 +16,11 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * REST Web Service
- *
+ * http://localhost:8080/WebApplicationRestJakob/webresources/ba/jacob
  * @author j
  */
-@Path("generic")
-public class GenericResource {
+@Path("ba")
+public class BrugerResource {
 
   @Context
   private UriInfo context;
@@ -28,7 +28,7 @@ public class GenericResource {
   /**
    * Creates a new instance of GenericResource
    */
-  public GenericResource() {
+  public BrugerResource() {
   }
 
   /**
