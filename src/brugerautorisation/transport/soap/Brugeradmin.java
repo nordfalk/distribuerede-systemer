@@ -1,7 +1,5 @@
 package brugerautorisation.transport.soap;
 import brugerautorisation.data.Bruger;
-import brugerautorisation.data.Brugerdatabase;
-import java.util.ArrayList;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 @WebService

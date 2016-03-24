@@ -1,7 +1,7 @@
 package brugerautorisation.transport.rmi;
 
 import brugerautorisation.data.Bruger;
-import brugerautorisation.data.Brugerdatabase;
+import brugerautorisation.server.Brugerdatabase;
 import java.util.ArrayList;
 
 interface Brugeradmin extends java.rmi.Remote {

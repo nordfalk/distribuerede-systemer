@@ -1,6 +1,6 @@
 package brugerautorisation.transport.soap;
 
-import brugerautorisation.data.Brugerdatabase;
+import brugerautorisation.server.Brugerdatabase;
 import javax.xml.ws.Endpoint;
 
 public class Brugeradminserver {

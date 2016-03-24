@@ -3,10 +3,9 @@ Idriftsættelse
 ant -q; rsync -a dist/* deltagere.html gmail-adgangskode.txt  javabog.dk:DistribueredeSystemer/
 
  */
-package brugerautorisation;
+package brugerautorisation.server;
 
 import brugerautorisation.data.Bruger;
-import brugerautorisation.data.Brugerdatabase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -71,7 +70,7 @@ public class BenytBrugerdatabase {
 				}
 
 				for (Bruger b : mglBru) {
-					Diverse.sendMail("DIST: Din adgangskode skal skiftes",
+					SendMail.sendMail("DIST: Din adgangskode skal skiftes",
 							"Kære "+b.fornavn+"\n\nDu skal skifte adgangskoden som en del af kurset i Distribuerede Systemer."
 							+"\n\nDit brugernavn er "+b.brugernavn+" og din midlertidige adgangskode er: "+b.adgangskode
 							+"\n\nSe hvordan du skifter koden på https://docs.google.com/document/d/1ZtbPbPrEKwSu32-SSmtcSWSQaeFid8YQI5FpI35Jkb0/edit?usp=sharing \n"

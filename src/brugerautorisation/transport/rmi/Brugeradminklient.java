@@ -1,6 +1,6 @@
 package brugerautorisation.transport.rmi;
 
-import brugerautorisation.Diverse;
+import brugerautorisation.server.Diverse;
 import brugerautorisation.data.Bruger;
 import java.rmi.Naming;
 
