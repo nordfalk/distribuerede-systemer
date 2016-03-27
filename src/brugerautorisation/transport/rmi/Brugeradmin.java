@@ -4,7 +4,7 @@ import brugerautorisation.data.Bruger;
 import brugerautorisation.server.Brugerdatabase;
 import java.util.ArrayList;
 
-interface Brugeradmin extends java.rmi.Remote {
+public interface Brugeradmin extends java.rmi.Remote {
 	/**
 	 * Henter alle en brugers data
 	 * @return et Bruger-objekt med alle data
