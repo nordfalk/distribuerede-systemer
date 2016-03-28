@@ -1,6 +1,6 @@
 package brugerautorisation.transport.soap;
 
-import brugerautorisation.server.Diverse;
+import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
 import brugerautorisation.server.Brugerdatabase;
 import brugerautorisation.server.SendMail;

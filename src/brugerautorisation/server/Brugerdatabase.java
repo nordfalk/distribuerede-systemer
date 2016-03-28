@@ -5,6 +5,7 @@
  */
 package brugerautorisation.server;
 
+import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
 import brugerautorisation.server.Serialisering;
 import java.io.IOException;

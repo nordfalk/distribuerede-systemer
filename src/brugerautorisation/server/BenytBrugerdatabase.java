@@ -5,6 +5,7 @@ ant -q; rsync -a dist/* deltagere.html gmail-adgangskode.txt  javabog.dk:Distrib
  */
 package brugerautorisation.server;
 
+import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
 import java.io.IOException;
 import java.util.ArrayList;
