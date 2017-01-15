@@ -6,6 +6,12 @@ import java.util.ArrayList;
 
 public interface Brugeradmin extends java.rmi.Remote {
 	/**
+	 * Henter en brugers offentlige data
+	 * @return et Bruger-objekt med de offentlige data
+	 */
+	//Bruger hentBrugerOffentligt(String brugernavn) throws java.rmi.RemoteException;
+
+	/**
 	 * Henter alle en brugers data
 	 * @return et Bruger-objekt med alle data
 	 */

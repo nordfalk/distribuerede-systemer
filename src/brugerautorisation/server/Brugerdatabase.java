@@ -53,7 +53,7 @@ public class Brugerdatabase implements Serializable {
 			} catch (IOException e2) {
 				e2.printStackTrace();
 				System.err.println("Deltagerlisten mangler vist. Du kan oprette den ved at hente\n"
-						+ "https://www.campusnet.dtu.dk/cnnet/participants/default.aspx?ElementID=508173&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=true&display=listWith&groupby=rights&interval=10000&search="
+						+ "https://www.campusnet.dtu.dk/cnnet/participants/default.aspx?ElementID=535237&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=false&display=listWith&groupby=rights&interval=10000&search="
 						+ "\nog gemme indholdet i filen "+path.toAbsolutePath());
 				System.err.println("\nDer oprettes nu en enkelt bruger du kan teste med\n(tryk Ctrl-C for at annullere)");
 				Bruger b = new Bruger();
@@ -116,7 +116,9 @@ public class Brugerdatabase implements Serializable {
 		// Lav en sikkerhedskopi - i fald der skal rulles tilbage eller filen blir beskadiget
 		try {
 			if (!Files.exists(SIKKERHEDSKOPI)) Files.createDirectories(SIKKERHEDSKOPI);
-			Files.move(Paths.get(SERIALISERET_FIL), SIKKERHEDSKOPI.resolve(SERIALISERET_FIL+new Date()));
+      if (Files.exists(Paths.get(SERIALISERET_FIL))) {
+        Files.move(Paths.get(SERIALISERET_FIL), SIKKERHEDSKOPI.resolve(SERIALISERET_FIL+new Date()));
+      }
 		} catch (IOException e) { e.printStackTrace(); }
 		try {
 			Serialisering.gem(this, SERIALISERET_FIL);
