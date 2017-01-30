@@ -8,6 +8,8 @@ package brugerautorisation.server;
 import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
 import java.io.IOException;
+import java.io.StringReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,6 +35,8 @@ public class BenytBrugerdatabase {
 			System.out.println("2 Generer kommasepareret fil med brugere");
 			System.out.println("3 Generer brugernavne og adgangskode");
 			System.out.println("4 Send mail til alle brugere, der ikke har ændret deres kode endnu");
+//			System.out.println("5 Tilføj bruger");
+//			System.out.println("6 Slet bruger");
 			System.out.println("9 Gem databasen og stop programmet");
 			System.out.print("Skriv valg: ");
 			int valg = scanner.nextInt();
@@ -81,6 +85,18 @@ public class BenytBrugerdatabase {
 					Thread.sleep(1000);
 				}
 			} else
+/*
+			if (valg==5) {
+        Bruger b = new Bruger();
+        System.out.println(""+Diverse.toString(b));
+        java.util.Scanner tastatur = new java.util.Scanner(System.in);  // forbered
+        System.out.print("brugernavn/studienummer: ");
+        b.brugernavn = tastatur.nextLine();
+        System.out.print("brugernavn/studienummer: ");
+        b.brugernavn = tastatur.nextLine();
+        // resten mangler
+			} else
+*/
 			if (valg==9) {
 				break;
 			} else {

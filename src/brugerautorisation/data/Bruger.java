@@ -5,7 +5,7 @@ public class Bruger implements Serializable
 {
 	// Vigtigt: Sæt versionsnummer så objekt kan læses selvom klassen er ændret!
 	private static final long serialVersionUID = 12345; // bare et eller andet nr.
-  
+
 	public String brugernavn; // studienummer
 	public String email = "hvad@ved.jeg.dk";
 	public long sidstAktiv;
@@ -18,7 +18,7 @@ public class Bruger implements Serializable
 
 
 	public String toString()
-	{ 
+	{
 		return email;
 	}
 }
