@@ -1,6 +1,14 @@
 /*
 Idriftsættelse
+cd /home/j/DistribueredeSystemer/DistribueredeSystemer
 ant -q; rsync -a dist/* deltagere.html gmail-adgangskode.txt  javabog.dk:DistribueredeSystemer/
+
+ssh javabog.dk
+cd DistribueredeSystemer
+screen -S dist java -jar "DistribueredeSystemer.jar"
+
+
+screen -d -r
 
  */
 package brugerautorisation.server;

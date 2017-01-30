@@ -269,11 +269,11 @@ map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s15
 		Bruger b = brugernavnTilBruger.get(brugernavn);
 		System.out.println("hentBruger "+brugernavn+" gav "+b);
 		if (b!=null) {
-			System.out.println("         kode="+adgangskode+" b.kode="+b.adgangskode);
 			if (b.adgangskode.equals(adgangskode)) {
 				b.sidstAktiv = System.currentTimeMillis();
 				return b;
 			}
+			System.out.println("        forkert kode: '"+adgangskode+"' - korrekt kode er '"+b.adgangskode+"'");
 		}
 		// Forkert adgangskode - vent lidt for at imødegå bruge force angreb
 		try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }

@@ -20,5 +20,8 @@ public class Brugeradminklient {
 		System.out.println("Fik ekstraFelt = " + ekstraFelt);
 
 		ba.setEkstraFelt("jacno", "xxx", "s123456_testfelt", "Hej fra Jacob"); // Skriv noget andet her
+
+		String webside = (String) ba.getEkstraFelt("jacno", "xxx", "webside");
+		System.out.println("webside = " + webside);
 	}
 }
