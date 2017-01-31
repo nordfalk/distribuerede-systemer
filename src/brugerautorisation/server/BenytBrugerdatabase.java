@@ -29,13 +29,27 @@ public class BenytBrugerdatabase {
 
 	public static void main(String[] args) throws IOException {
 
+		Scanner scanner = new Scanner(System.in); // opret scanner-objekt
+
+		System.out.println("**********************************************");
+		System.out.println("**                                          **");
+		System.out.println("**  SERVER for brugerautorisationsmodulet   **");
+		System.out.println("**                                          **");
+		System.out.println("**********************************************");
+		System.out.println();
+		System.out.println("Du er ved at starte serveren for brugerautorisationsmodulet");
+		System.out.println();
+		System.out.print("Er det det du ønsker? (tryk 'n' for at afbryde)");
+    if (scanner.nextLine().toLowerCase().startsWith("n")) {
+  		System.out.println("OK - afslutter programmet");
+      System.exit(0);
+    }
+
 		Brugerdatabase db = Brugerdatabase.getInstans();
 		System.out.println("\nDer er "+db.brugere.size()+" brugere i databasen");
 
 		brugerautorisation.transport.rmi.Brugeradminserver.main(null);
 		brugerautorisation.transport.soap.Brugeradminserver.main(null);
-
-		Scanner scanner = new Scanner(System.in); // opret scanner-objekt
 
 		while (true) try {
 			System.out.println();
@@ -43,7 +57,7 @@ public class BenytBrugerdatabase {
 			System.out.println("2 Generer kommasepareret fil med brugere");
 			System.out.println("3 Generer brugernavne og adgangskode");
 			System.out.println("4 Send mail til alle brugere, der ikke har ændret deres kode endnu");
-//			System.out.println("5 Tilføj bruger");
+			System.out.println("5 Tilføj bruger");
 //			System.out.println("6 Slet bruger");
 			System.out.println("9 Gem databasen og stop programmet");
 			System.out.print("Skriv valg: ");
@@ -93,18 +107,26 @@ public class BenytBrugerdatabase {
 					Thread.sleep(1000);
 				}
 			} else
-/*
 			if (valg==5) {
         Bruger b = new Bruger();
-        System.out.println(""+Diverse.toString(b));
         java.util.Scanner tastatur = new java.util.Scanner(System.in);  // forbered
-        System.out.print("brugernavn/studienummer: ");
-        b.brugernavn = tastatur.nextLine();
-        System.out.print("brugernavn/studienummer: ");
-        b.brugernavn = tastatur.nextLine();
-        // resten mangler
+        b.campusnetId = "ukendt";
+        b.ekstraFelter.put("webside", "");
+        System.out.print("Fornavn: ");
+        b.fornavn = tastatur.nextLine();
+        System.out.print("Efternavn: ");
+        b.efternavn = tastatur.nextLine();
+        System.out.print("Email: ");
+        b.email = tastatur.nextLine();
+        b.brugernavn = b.email.split("@")[0];
+        System.out.print("Studieretning: ");
+        b.studeretning = tastatur.nextLine();
+        b.adgangskode = "kode"+Integer.toString((int)(Math.random()*Integer.MAX_VALUE), Character.MAX_RADIX);
+        db.brugere.add(b);
+
+        db.brugernavnTilBruger.put(b.brugernavn, b);
+        System.out.println("Bruger tilføjet: "+Diverse.toString(b));
 			} else
-*/
 			if (valg==9) {
 				break;
 			} else {
