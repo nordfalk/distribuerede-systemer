@@ -10,7 +10,7 @@ public class Brugeradminklient {
 		Brugeradmin ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
 
     //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
-		ba.ændrAdgangskode("jacno", "lel", "xxx");
+		//ba.ændrAdgangskode("jacno", "lel", "xxx");
 		Bruger b = ba.hentBruger("jacno", "xxx");
 		System.out.println("Fik bruger = " + b);
 		System.out.println("Data: " + Diverse.toString(b));

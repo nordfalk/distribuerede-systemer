@@ -22,7 +22,6 @@ public interface Brugeradmin
 	 * @param brugernavn Brugeren, som emailen skal sendes til
 	 * @param emne Emnet - teksten DIST: bliver foranstillet i mailen
 	 * @param tekst Brødteksten - teksten 'Sendt fra xxxx ' bliver tilføjet  i mailen
-	 * @throws java.rmi.RemoteException
 	 */
 	@WebMethod void sendEmail(String brugernavn, String adgangskode, String emne, String tekst);
 
@@ -33,7 +32,6 @@ public interface Brugeradmin
 	 * @param brugernavn Brugeren det drejer sig om. Adgangskode skal være korrekt, dvs det er ikke muligt at hente felter for brugere, der ikke er logget ind.
 	 * @param feltnavn Navnet på feltet. Brug dit studie- eller gruppenummer som præfix, f.eks. "g22_galgeleg_point"
 	 * @param værdi Værdien er et vilkårligt objekt, f.eks. 223 (Integer) eller "223" (String)
-	 * @throws java.rmi.RemoteException
 	 */
 	@WebMethod void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi);
 

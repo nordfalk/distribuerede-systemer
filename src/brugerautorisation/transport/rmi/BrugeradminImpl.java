@@ -16,12 +16,12 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 	}
 
 	@Override
-	public Bruger hentBruger(String brugernavn, String adgangskode) throws RemoteException {
+	public Bruger hentBruger(String brugernavn, String adgangskode) {
 		return db.hentBruger(brugernavn, adgangskode);
 	}
 
 	@Override
-	public Bruger ændrAdgangskode(String brugernavn, String adgangskode, String nyAdgangskode) throws RemoteException {
+	public Bruger ændrAdgangskode(String brugernavn, String adgangskode, String nyAdgangskode) {
 		Bruger b = db.hentBruger(brugernavn, adgangskode);
 		b.adgangskode = nyAdgangskode;
 		db.gemTilFil(false);
@@ -29,18 +29,18 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 	}
 
 	@Override
-	public void sendEmail(String brugernavn, String adgangskode, String emne, String tekst) throws RemoteException {
+	public void sendEmail(String brugernavn, String adgangskode, String emne, String tekst) {
 		Bruger b = db.hentBruger(brugernavn, adgangskode);
 		try {
 			SendMail.sendMail("DIST: "+emne, tekst, b.email);
 		} catch (MessagingException ex) {
 			ex.printStackTrace();
-			throw new RemoteException("fejl", ex);
+			throw new IllegalStateException("fejl", ex);
 		}
 	}
 
 	@Override
-	public void sendGlemtAdgangskodeEmail(String brugernavn, String supplerendeTekst) throws RemoteException {
+	public void sendGlemtAdgangskodeEmail(String brugernavn, String supplerendeTekst) {
 		Bruger b = db.brugernavnTilBruger.get(brugernavn);
 		try {
 			SendMail.sendMail("DIST: Din adgangskode ",
@@ -50,17 +50,17 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 					b.email);
 		} catch (MessagingException ex) {
 			ex.printStackTrace();
-			throw new RemoteException("fejl", ex);
+			throw new IllegalStateException("fejl", ex);
 		}
 	}
 
 	@Override
-	public Object getEkstraFelt(String brugernavn, String adgangskode, String feltnavn) throws RemoteException {
+	public Object getEkstraFelt(String brugernavn, String adgangskode, String feltnavn) {
 		return db.hentBruger(brugernavn, adgangskode).ekstraFelter.get(feltnavn);
 	}
 
 	@Override
-	public void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi) throws RemoteException {
+	public void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi) {
 		db.hentBruger(brugernavn, adgangskode).ekstraFelter.put(feltnavn, værdi);
 		db.gemTilFil(false);
 	}
