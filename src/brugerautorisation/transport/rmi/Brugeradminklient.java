@@ -9,19 +9,19 @@ public class Brugeradminklient {
 //		Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://localhost/brugeradmin");
 		Brugeradmin ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
 
-    //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
-		//ba.ændrAdgangskode("jacno", "lel", "xxx");
-		Bruger b = ba.hentBruger("jacno", "xxx");
+    //ba.sendGlemtAdgangskodeEmail("s912345", "Dette er en test, husk at skifte kode");
+		ba.ændrAdgangskode("s912345", "kode1xyz", "xxx");
+		Bruger b = ba.hentBruger("s912345", "xxx");
 		System.out.println("Fik bruger = " + b);
 		System.out.println("Data: " + Diverse.toString(b));
 		// ba.sendEmail("jacno", "xxx", "Hurra det virker!", "Jeg er så glad");
 
-		Object ekstraFelt = ba.getEkstraFelt("jacno", "xxx", "s123456_testfelt");
+		Object ekstraFelt = ba.getEkstraFelt("s912345", "xxx", "hobby");
 		System.out.println("Fik ekstraFelt = " + ekstraFelt);
 
-		ba.setEkstraFelt("jacno", "xxx", "s123456_testfelt", "Hej fra Jacob"); // Skriv noget andet her
+		ba.setEkstraFelt("s912345", "xxx", "hobby", "Tennis og programmering"); // Skriv noget andet her
 
-		String webside = (String) ba.getEkstraFelt("jacno", "xxx", "webside");
+		String webside = (String) ba.getEkstraFelt("s912345", "xxx", "webside");
 		System.out.println("webside = " + webside);
 	}
 }

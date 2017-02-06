@@ -75,7 +75,7 @@ public class BenytBrugerdatabase {
 			} else
 			if (valg==3) {
 				for (Bruger b : db.brugere) {
-					System.out.println("sudo useradd -m -p `mkpasswd '"+b.adgangskode+"'` "+b.brugernavn+"; sudo adduser "+b.brugernavn+" sudo");
+					System.out.println("sudo useradd -m -s /bin/bash -p `mkpasswd '"+b.adgangskode+"'` "+b.brugernavn+"; sudo adduser "+b.brugernavn+" sudo");
 				}
 			} else
 			if (valg==4) {

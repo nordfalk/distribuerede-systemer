@@ -51,6 +51,18 @@ public class Brugerdatabase implements Serializable {
 				System.out.println("Det ser ud til at du ikke har en brugerdatabase endnu.");
 				System.out.println("Jeg læser nu filen "+path+" og opretter en brugerdatabase fra den\n");
 				indlæsDeltagerlisteFraCampusnetHtml(data, instans.brugere);
+        Bruger b = new Bruger();
+        b.campusnetId = "ukendt";
+        b.ekstraFelter.put("webside", "http://www.diplom.dtu.dk/");
+        b.fornavn = "Dennis";
+        b.efternavn = "Demostudent";
+        b.email = "s912345@student.dtu.dk";
+        b.brugernavn = b.email.split("@")[0];
+        b.studeretning = "demobruger";
+        b.adgangskode = "kode1xyz";
+        instans.brugere.add(b);
+        System.out.println("Demobruger tilføjet: "+Diverse.toString(b));
+
         if (instans.brugere.size()==0) throw new IllegalStateException("Der blev ikke fundet nogen brugere i filen");
 			} catch (IOException e2) {
 				e2.printStackTrace();
