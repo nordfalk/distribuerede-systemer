@@ -15,7 +15,7 @@ public interface Brugeradmin
 	 * Ændrer en brugers adgangskode
 	 * @return et Bruger-objekt med alle data
 	 */
-	@WebMethod Bruger ændrAdgangskode(String brugernavn, String adgangskode, String nyAdgangskode);
+	@WebMethod Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode);
 
 	/**
 	 * Sender en email til en bruger

@@ -19,15 +19,15 @@ public class Brugeradminklient {
 		Service service = Service.create(url, qname);
 		Brugeradmin ba = service.getPort(Brugeradmin.class);
 
-    //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
-		//ba.ændrAdgangskode("jacno", "kode3stljl", "xxx");
-		Bruger b = ba.hentBruger("jacno", "xxx");
+    //ba.sendGlemtAdgangskodeEmail("s123456", "Dette er en test, husk at skifte kode");
+		//ba.ændrAdgangskode("s123456", "kode1xyz", "kode1xyz");
+		Bruger b = ba.hentBruger("s123456", "kode1xyz");
 		System.out.println("Fik bruger = " + b);
 		System.out.println("Data: " + Diverse.toString(b));
 		// ba.sendEmail("jacno", "xxx", "Hurra det virker!", "Jeg er så glad");
-		ba.setEkstraFelt("jacno", "xxx", "s123456_testfelt", "Jeg er så glad");
-		Object ekstraFelt = ba.getEkstraFelt("jacno", "xxx", "s123456_testfelt");
-		System.out.println("Fik ekstraFelt = " + ekstraFelt);
+
+		Object ekstraFelt = ba.getEkstraFelt("s123456", "kode1xyz", "hobby");
+		System.out.println("Brugerens hobby er: " + ekstraFelt);
 
 	}
 }

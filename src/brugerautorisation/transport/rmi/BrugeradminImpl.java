@@ -1,9 +1,7 @@
 package brugerautorisation.transport.rmi;
-import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
 import brugerautorisation.server.Brugerdatabase;
 import brugerautorisation.server.SendMail;
-import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import javax.mail.MessagingException;
 
@@ -21,8 +19,10 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 	}
 
 	@Override
-	public Bruger ændrAdgangskode(String brugernavn, String adgangskode, String nyAdgangskode) {
-		Bruger b = db.hentBruger(brugernavn, adgangskode);
+	public Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode) {
+		Bruger b = db.hentBruger(brugernavn, glAdgangskode);
+    if (nyAdgangskode.isEmpty()) throw new IllegalArgumentException("Tom adgangskode");
+    if (nyAdgangskode.contains("\"") || nyAdgangskode.contains("'")) throw new IllegalArgumentException("Ugyldige tegn i adgangskoden");
 		b.adgangskode = nyAdgangskode;
 		db.gemTilFil(false);
 		return b;

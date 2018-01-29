@@ -56,7 +56,7 @@ public class Brugerdatabase implements Serializable {
         b.ekstraFelter.put("webside", "http://www.diplom.dtu.dk/");
         b.fornavn = "Dennis";
         b.efternavn = "Demostudent";
-        b.email = "s912345@student.dtu.dk";
+        b.email = "s123456@student.dtu.dk";
         b.brugernavn = b.email.split("@")[0];
         b.studeretning = "demobruger";
         b.adgangskode = "kode1xyz";
@@ -287,7 +287,7 @@ map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s15
 			}
 			System.out.println("        forkert kode: '"+adgangskode+"' - korrekt kode er '"+b.adgangskode+"'");
 		}
-		// Forkert adgangskode - vent lidt for at imødegå bruge force angreb
+		// Forkert adgangskode - vent lidt for at imødegå brute force angreb
 		try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }
 		throw new IllegalArgumentException("Forkert brugernavn eller adgangskode");
 	}

@@ -21,7 +21,7 @@ public interface Brugeradmin extends java.rmi.Remote {
 	 * Ændrer en brugers adgangskode
 	 * @return et Bruger-objekt med alle data
 	 */
-	Bruger ændrAdgangskode(String brugernavn, String adgangskode, String nyAdgangskode) throws java.rmi.RemoteException;
+	Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode) throws java.rmi.RemoteException;
 
 	/**
 	 * Sender en email til en bruger
