@@ -55,7 +55,7 @@ public class BenytBrugerdatabase {
 			System.out.println();
 			System.out.println("1 Udskriv brugere");
 			System.out.println("2 Generer kommasepareret fil med brugere");
-			System.out.println("3 Generer brugernavne og adgangskode");
+			System.out.println("3 Lav script der opretter alle brugerne som Linux-brugere");
 			System.out.println("4 Send mail til alle brugere, der ikke har ændret deres kode endnu");
 			System.out.println("5 Tilføj bruger");
 //			System.out.println("6 Slet bruger");

@@ -44,7 +44,7 @@ public class Brugerdatabase implements Serializable {
 			System.out.println("Indlæste serialiseret Brugerdatabase: "+instans);
 		} catch (Exception e) {
 			instans = new Brugerdatabase();
-			Path path = Paths.get("deltagere.html");
+			Path path = Paths.get("Deltagerliste.html");
 			Scanner scanner = new Scanner(System.in);
 			try {
 				String data = new String(Files.readAllBytes(path));
@@ -115,6 +115,7 @@ public class Brugerdatabase implements Serializable {
 			b.efternavn = td[2].split("class=\"link\">")[2].split("<")[0];
 			b.email = td[4].split("mailto:")[1].split("\"")[0];
 			if (b.email.contains("flhan@dtu.dk") || b.email.contains("phso@dtu.dk")) continue; // drom adm personale
+			if (b.email.contains("feni@dtu.dk")) continue; // drom adm personale
 			b.brugernavn = b.email.split("@")[0];
 			b.studeretning = td[5].substring(1).replaceAll("<[^>]+>", " ")
               .replace("STADS-tilmeldt","")
