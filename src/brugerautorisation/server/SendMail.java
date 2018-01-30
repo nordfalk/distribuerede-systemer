@@ -18,9 +18,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 /**
- *
+ * Sender en mail. Kræver JavaMail
  * @author j
  */
 public class SendMail {
@@ -34,6 +33,11 @@ public class SendMail {
     props.put("mail.smtp.starttls.enable", "true");
     props.put("mail.smtp.host", "smtp.gmail.com");
     props.put("mail.smtp.port", "587");
+
+    //
+    // FØLGENDE KRÆVER JavaMail BIBLIOTEKET
+    // kommentér det evt væk, da du ikke skal sende mail fra din PC (det gør serveren jo)
+
     Session session = Session.getInstance(props, new Authenticator() {
       protected PasswordAuthentication getPasswordAuthentication() {
         Path kodefil = Paths.get("gmail-adgangskode.txt");
@@ -55,5 +59,5 @@ public class SendMail {
     message.setText(tekst);
     Transport.send(message);
   }
-  
+
 }

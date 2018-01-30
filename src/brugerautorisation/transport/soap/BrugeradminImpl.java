@@ -4,7 +4,6 @@ import brugerautorisation.data.Bruger;
 import brugerautorisation.server.Brugerdatabase;
 import brugerautorisation.server.SendMail;
 import javax.jws.WebService;
-import javax.mail.MessagingException;
 
 @WebService(endpointInterface = "brugerautorisation.transport.soap.Brugeradmin")
 public class BrugeradminImpl implements Brugeradmin {
@@ -30,7 +29,7 @@ public class BrugeradminImpl implements Brugeradmin {
 		Bruger b = db.hentBruger(brugernavn, adgangskode);
 		try {
 			SendMail.sendMail("DIST: "+emne, tekst, b.email);
-		} catch (MessagingException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new RuntimeException("fejl", ex);
 		}
@@ -45,7 +44,7 @@ public class BrugeradminImpl implements Brugeradmin {
 					+(b.sidstAktiv>0?"":"\n\nDu skal skifte adgangskoden for at bekræfte at du følger kurset.\nSe hvordan på https://goo.gl/26pBG9 \n")
 					+"\n"+supplerendeTekst,
 					b.email);
-		} catch (MessagingException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new RuntimeException("fejl", ex);
 		}
