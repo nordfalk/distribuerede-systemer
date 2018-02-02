@@ -34,9 +34,8 @@ public class SendMail {
     props.put("mail.smtp.host", "smtp.gmail.com");
     props.put("mail.smtp.port", "587");
 
-    //
-    // FØLGENDE KRÆVER JavaMail BIBLIOTEKET
-    // kommentér det evt væk, da du ikke skal sende mail fra din PC (det gør serveren jo)
+    // FØLGENDE KRÆVER JavaMail-BIBLIOTEKET (det er med som standard i Netbeans)
+    // fjern evt koden, da du ikke skal sende mail fra din PC (det gør serveren jo)
 
     Session session = Session.getInstance(props, new Authenticator() {
       protected PasswordAuthentication getPasswordAuthentication() {
@@ -45,7 +44,7 @@ public class SendMail {
           String adgangskode = new String(Files.readAllBytes(kodefil));
           return new PasswordAuthentication(afsender, adgangskode);
         } catch (IOException ex) {
-          System.err.println("Du kan ikke sende mails f\u00f8r du har konfigurerer afsender (" + afsender + ") til lav sikkerhed:\nhttps://www.google.com/settings/security/lesssecureapps\nog og lagt adgangskoden i " + kodefil);
+          System.err.println("Du kan ikke sende mails før du har konfigurerer afsender (" + afsender + ") til lav sikkerhed:\nhttps://www.google.com/settings/security/lesssecureapps\nog og lagt adgangskoden i " + kodefil);
           ex.printStackTrace();
         }
         return null;

@@ -16,12 +16,7 @@ public class BrugeradminImpl implements Brugeradmin {
 
 	@Override
 	public Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode) {
-		Bruger b = db.hentBruger(brugernavn, glAdgangskode);
-    if (nyAdgangskode.isEmpty()) throw new IllegalArgumentException("Tom adgangskode");
-    if (nyAdgangskode.contains("\"") || nyAdgangskode.contains("'")) throw new IllegalArgumentException("Ugyldige tegn i adgangskoden");
-		b.adgangskode = nyAdgangskode;
-		db.gemTilFil(false);
-		return b;
+    return db.ændrAdgangskode(brugernavn, glAdgangskode, nyAdgangskode);
 	}
 
 	@Override

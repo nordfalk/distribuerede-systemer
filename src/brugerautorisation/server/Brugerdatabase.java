@@ -281,15 +281,31 @@ map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s15
 	public Bruger hentBruger(String brugernavn, String adgangskode) {
 		Bruger b = brugernavnTilBruger.get(brugernavn);
 		System.out.println("hentBruger "+brugernavn+" gav "+b);
-		if (b!=null) {
-			if (b.adgangskode.equals(adgangskode)) {
-				b.sidstAktiv = System.currentTimeMillis();
-				return b;
-			}
-			System.out.println("        forkert kode: '"+adgangskode+"' - korrekt kode er '"+b.adgangskode+"'");
-		}
-		// Forkert adgangskode - vent lidt for at imødegå brute force angreb
-		try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }
-		throw new IllegalArgumentException("Forkert brugernavn eller adgangskode for "+brugernavn);
+		if (b!=null && b.adgangskode.equals(adgangskode)) {
+      b.sidstAktiv = System.currentTimeMillis();
+      return b;
+    }
+    if (b!=null) {
+      System.out.println("        forkert kode: '"+adgangskode+"' - korrekt kode er '"+b.adgangskode+"'");
+    }
+    // Forkert adgangskode - vent lidt for at imødegå brute force angreb
+    try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }
+    throw new IllegalArgumentException("Forkert brugernavn eller adgangskode for "+brugernavn);
 	}
+
+  public Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode) {
+    // Tjek først om brugerens adgangskode allerede ER ændret til nyAdgangskode - der er mange der kommer til at lave kaldet flere gange
+		Bruger b = brugernavnTilBruger.get(brugernavn);
+		System.out.println("ændrAdgangskode "+brugernavn+" fra "+glAdgangskode + " til "+nyAdgangskode+" gav b="+b);
+		if (b!=null && !b.adgangskode.equals(glAdgangskode) && b.adgangskode.equals(nyAdgangskode)) {
+      throw new IllegalStateException("Adgangskoden ER allerede ændret til "+nyAdgangskode+". Hvorfor vil du ændre den til det samme som den allerede er? (Vink: Kald kun ændrAdgangskode én gang :-)");
+    }
+    b = hentBruger(brugernavn, glAdgangskode); // Lav derefter det almindelige adgangskodetjek
+
+    if (nyAdgangskode.isEmpty()) throw new IllegalArgumentException("Ny adgangskode må ikke være tom");
+    if (nyAdgangskode.contains("\"") || nyAdgangskode.contains("'")) throw new IllegalArgumentException("Ugyldige tegn i ny adgangskode");
+		b.adgangskode = nyAdgangskode;
+		gemTilFil(false);
+    return b;
+  }
 }
