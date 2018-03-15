@@ -75,6 +75,7 @@ public class BenytBrugerdatabase {
 			} else
 			if (valg==3) {
 				for (Bruger b : db.brugere) {
+          if ("s123456 jacno stbn".contains(b.brugernavn)) continue;
 					System.out.println("sudo useradd -m -s /bin/bash -p `mkpasswd '"+b.adgangskode+"'` "+b.brugernavn+"; sudo adduser "+b.brugernavn+" sudo");
 				}
 			} else

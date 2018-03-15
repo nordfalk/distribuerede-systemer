@@ -65,11 +65,13 @@ public class Brugerdatabase implements Serializable {
 
         if (instans.brugere.size()==0) throw new IllegalStateException("Der blev ikke fundet nogen brugere i filen");
 			} catch (IOException e2) {
-				e2.printStackTrace();
-				System.err.println("Deltagerlisten mangler vist. Du kan oprette den ved at hente\n"
+				System.err.println("Deltagerlisten mangler vist. \n\nDu kan oprette den ved at hente\n"
 						+ "https://cn.inside.dtu.dk/cnnet/participants/default.aspx?ElementID=535237&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=false&display=listWith&groupby=rights&interval=10000&search="
 						+ "\nog gemme indholdet i filen "+path.toAbsolutePath());
-				System.err.println("\nDer oprettes nu en enkelt bruger du kan teste med\n(tryk Ctrl-C for at annullere)");
+        
+				e2.printStackTrace();
+
+				System.err.println("\n\nDer oprettes nu en enkelt bruger du kan teste med\n(tryk Ctrl-C for at annullere)");
 				Bruger b = new Bruger();
 				System.err.print("Brugernavn: "); b.brugernavn = scanner.nextLine();
 				System.err.print("Adgangskode: "); b.adgangskode = scanner.nextLine();
