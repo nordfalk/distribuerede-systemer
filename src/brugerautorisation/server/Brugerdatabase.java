@@ -7,7 +7,6 @@ package brugerautorisation.server;
 
 import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
-import brugerautorisation.server.Serialisering;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -68,7 +67,7 @@ public class Brugerdatabase implements Serializable {
 				System.err.println("Deltagerlisten mangler vist. \n\nDu kan oprette den ved at hente\n"
 						+ "https://cn.inside.dtu.dk/cnnet/participants/default.aspx?ElementID=535237&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=false&display=listWith&groupby=rights&interval=10000&search="
 						+ "\nog gemme indholdet i filen "+path.toAbsolutePath());
-        
+
 				e2.printStackTrace();
 
 				System.err.println("\n\nDer oprettes nu en enkelt bruger du kan teste med\n(tryk Ctrl-C for at annullere)");
@@ -89,6 +88,55 @@ public class Brugerdatabase implements Serializable {
 		return instans;
 	}
 
+
+	public void gemTilFil(boolean tvingSkrivning) {
+		if (!tvingSkrivning && filSidstGemt>System.currentTimeMillis()-60000) return; // Gem højst 1 gang per minut
+		// Lav en sikkerhedskopi - i fald der skal rulles tilbage eller filen blir beskadiget
+		try {
+			if (!Files.exists(SIKKERHEDSKOPI)) Files.createDirectories(SIKKERHEDSKOPI);
+      if (Files.exists(Paths.get(SERIALISERET_FIL))) {
+        Files.move(Paths.get(SERIALISERET_FIL), SIKKERHEDSKOPI.resolve(SERIALISERET_FIL+new Date()));
+      }
+		} catch (IOException e) { e.printStackTrace(); }
+		try {
+			Serialisering.gem(this, SERIALISERET_FIL);
+			filSidstGemt = System.currentTimeMillis();
+			System.out.println("Gemt brugerne pr "+new Date());
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public Bruger hentBruger(String brugernavn, String adgangskode) {
+		Bruger b = brugernavnTilBruger.get(brugernavn);
+		System.out.println("hentBruger "+brugernavn+" gav "+b);
+		if (b!=null && b.adgangskode.equals(adgangskode)) {
+      b.sidstAktiv = System.currentTimeMillis();
+      return b;
+    }
+    if (b!=null) {
+      System.out.println("        forkert kode: '"+adgangskode+"' - korrekt kode er '"+b.adgangskode+"'");
+    }
+    // Forkert adgangskode - vent lidt for at imødegå brute force angreb
+    try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }
+    throw new IllegalArgumentException("Forkert brugernavn eller adgangskode for "+brugernavn);
+	}
+
+  public Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode) {
+    // Tjek først om brugerens adgangskode allerede ER ændret til nyAdgangskode - der er mange der kommer til at lave kaldet flere gange
+		Bruger b = brugernavnTilBruger.get(brugernavn);
+		System.out.println("ændrAdgangskode "+brugernavn+" fra "+glAdgangskode + " til "+nyAdgangskode+" gav b="+b);
+		if (b!=null && !b.adgangskode.equals(glAdgangskode) && b.adgangskode.equals(nyAdgangskode)) {
+      throw new IllegalStateException("Adgangskoden ER allerede ændret til "+nyAdgangskode+". Hvorfor vil du ændre den til det samme som den allerede er? (Vink: Kald kun ændrAdgangskode én gang :-)");
+    }
+    b = hentBruger(brugernavn, glAdgangskode); // Lav derefter det almindelige adgangskodetjek
+
+    if (nyAdgangskode.isEmpty()) throw new IllegalArgumentException("Ny adgangskode må ikke være tom");
+    if (nyAdgangskode.contains("\"") || nyAdgangskode.contains("'")) throw new IllegalArgumentException("Ugyldige tegn i ny adgangskode");
+		b.adgangskode = nyAdgangskode;
+		gemTilFil(false);
+    return b;
+  }
 
 
 	public static void indlæsDeltagerlisteFraCampusnetHtml(String data, ArrayList<Bruger> brugere) {
@@ -159,75 +207,6 @@ public class Brugerdatabase implements Serializable {
       System.out.println("map="+map);
 			System.out.flush();
 			/*
-            <div class="ui-participant">
-                <div class="ui-participant-img">
-                    <a href="https://www.inside.dtu.dk/da/dtuinside/generelt/telefonbog/person?id=87340&tab=0">
-                        <img src="/cnnet/userpicture/userpicture.ashx?x=150&userId=179992" />
-                    </a>
-                </div>
-                <div class="ui-participant-name">
-                    <span>Sacha Nørskov Behrend</span>
-                </div>
-
-
-                <div class="ui-participant-email">
-                    <span class="hiddenOnIcons">
-                        <a href="mailto:s132970@student.dtu.dk">
-                            s132970@student.dtu.dk
-                        </a>
-                    </span>
-                    <span class="shownOnIcons">
-                        s132970@student.dtu.dk
-                    </span>
-                </div>
-
-
-                <div class="ui-participants-arrow" id="participantarrow179992" onclick="ToggleAdditionalParticipantInformation(179992)">
-                </div>
-
-                <div class="ui-participant-additional user-information">
-                    <span>s132970</span>
-                </div>
-
-            </div>
-            <div class="ui-participant-informationbox" id="participantinformation179992">
-                <div class="ui-participant-placeholder">
-
-                    <div class="ui-participant-infobox">
-                        <div class="info-header">
-                            <span>Brugernavn</span>
-                        </div>
-                        <div>
-                            s132970
-                        </div>
-                    </div>
-
-                    <div class="ui-participant-infobox">
-                        <div class="info-header">
-                            <span>Email</span>
-                        </div>
-                        <div>
-                            <a href="mailto:s132970@student.dtu.dk">
-                                s132970@student.dtu.dk
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ui-participant-infobox">
-                        <div class="info-header">
-                            <span>Uddannelse</span>
-                        </div>
-                        <div class="ui-participants-infolist">
-
-                            <p>diploming. Softwaretek.</p>
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
 map={img=, name=Jacob Nordfalk, email=jacno@dtu.dk jacno@dtu.dk, additional user-information=jacno, informationbox=id="participantinformation162858">, placeholder=, Brugernavn=jacno, Email=jacno@dtu.dk, Institutter=Center for Diplomingeniøruddannelse}
 map={img=, name=Pia Holm Søeborg, email=phso@dtu.dk phso@dtu.dk, additional user-information=phso, informationbox=id="participantinformation163058">, placeholder=, Brugernavn=phso, Email=phso@dtu.dk, Institutter=Center for Diplomingeniøruddannelse DIPL-Sekretariatet, categorybar=Forfattere (2), sortrow=Sortér efter Fornavn Efternavn Adresse Email}
 map={img=, name=Sune Thomas Bernth Nielsen, email=stbn@dtu.dk stbn@dtu.dk, additional user-information=stbn, informationbox=id="participantinformation179622">, placeholder=, Brugernavn=stbn, Email=stbn@dtu.dk, Adresse=Skodsborggade 17,4 th, 2200 København N, Uddannelse=diploming., Institutter=Center for Diplomingeniøruddannelse}
@@ -237,7 +216,6 @@ map={img=, name=Burim Abdulahi, email=s143591@student.dtu.dk s143591@student.dtu
 map={img=, name=Ibrahim Al-Bacha, email=s118016@student.dtu.dk s118016@student.dtu.dk, additional user-information=s118016, informationbox=id="participantinformation182196">, placeholder=, Brugernavn=s118016, Email=s118016@student.dtu.dk, Uddannelse=diploming. Softwaretek.}
 map={img=, name=Amer Ali, email=s145224@student.dtu.dk s145224@student.dtu.dk, additional user-information=s145224, informationbox=id="participantinformation203190">, placeholder=, Brugernavn=s145224, Email=s145224@student.dtu.dk, Uddannelse=diploming. Softwaretek.}
 map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s153317@student.dtu.dk, additional user-information=s153317, informationbox=id="participantinformation220040">, placeholder=, Brugernavn=s153317, Email=s153317@student.dtu.dk, Uddannelse=diploming. Softwaretek.}
-
 			*/
 			Bruger b = new Bruger();
 			b.fornavn = map.get("name");
@@ -259,55 +237,4 @@ map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s15
 			brugere.add(b);
 		}
 	}
-
-
-
-	public void gemTilFil(boolean tvingSkrivning) {
-		if (!tvingSkrivning && filSidstGemt>System.currentTimeMillis()-60000) return; // Gem højst 1 gang per minut
-		// Lav en sikkerhedskopi - i fald der skal rulles tilbage eller filen blir beskadiget
-		try {
-			if (!Files.exists(SIKKERHEDSKOPI)) Files.createDirectories(SIKKERHEDSKOPI);
-      if (Files.exists(Paths.get(SERIALISERET_FIL))) {
-        Files.move(Paths.get(SERIALISERET_FIL), SIKKERHEDSKOPI.resolve(SERIALISERET_FIL+new Date()));
-      }
-		} catch (IOException e) { e.printStackTrace(); }
-		try {
-			Serialisering.gem(this, SERIALISERET_FIL);
-			filSidstGemt = System.currentTimeMillis();
-			System.out.println("Gemt brugerne pr "+new Date());
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	public Bruger hentBruger(String brugernavn, String adgangskode) {
-		Bruger b = brugernavnTilBruger.get(brugernavn);
-		System.out.println("hentBruger "+brugernavn+" gav "+b);
-		if (b!=null && b.adgangskode.equals(adgangskode)) {
-      b.sidstAktiv = System.currentTimeMillis();
-      return b;
-    }
-    if (b!=null) {
-      System.out.println("        forkert kode: '"+adgangskode+"' - korrekt kode er '"+b.adgangskode+"'");
-    }
-    // Forkert adgangskode - vent lidt for at imødegå brute force angreb
-    try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }
-    throw new IllegalArgumentException("Forkert brugernavn eller adgangskode for "+brugernavn);
-	}
-
-  public Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode) {
-    // Tjek først om brugerens adgangskode allerede ER ændret til nyAdgangskode - der er mange der kommer til at lave kaldet flere gange
-		Bruger b = brugernavnTilBruger.get(brugernavn);
-		System.out.println("ændrAdgangskode "+brugernavn+" fra "+glAdgangskode + " til "+nyAdgangskode+" gav b="+b);
-		if (b!=null && !b.adgangskode.equals(glAdgangskode) && b.adgangskode.equals(nyAdgangskode)) {
-      throw new IllegalStateException("Adgangskoden ER allerede ændret til "+nyAdgangskode+". Hvorfor vil du ændre den til det samme som den allerede er? (Vink: Kald kun ændrAdgangskode én gang :-)");
-    }
-    b = hentBruger(brugernavn, glAdgangskode); // Lav derefter det almindelige adgangskodetjek
-
-    if (nyAdgangskode.isEmpty()) throw new IllegalArgumentException("Ny adgangskode må ikke være tom");
-    if (nyAdgangskode.contains("\"") || nyAdgangskode.contains("'")) throw new IllegalArgumentException("Ugyldige tegn i ny adgangskode");
-		b.adgangskode = nyAdgangskode;
-		gemTilFil(false);
-    return b;
-  }
 }
