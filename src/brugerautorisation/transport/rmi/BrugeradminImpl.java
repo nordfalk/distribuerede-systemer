@@ -61,20 +61,6 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 
   @Override
   public Bruger hentBrugerOffentligt(String brugernavn) {
-		Bruger b = db.brugernavnTilBruger.get(brugernavn);
-    if (b==null) {
-      // Ukendt bruger - vent lidt for at imødegå brute force angreb
-      try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }
-      throw new IllegalArgumentException("Bruger findes ikke");
-    }
-    Bruger off = new Bruger();
-    off.brugernavn = b.brugernavn;
-    off.campusnetId = b.campusnetId;
-    off.efternavn = b.efternavn;
-    off.email = b.email;
-    off.fornavn = b.fornavn;
-    off.sidstAktiv = b.sidstAktiv;
-    off.studeretning = b.studeretning;
-    return off;
+		return db.hentBrugerOffentligt(brugernavn);
   }
 }

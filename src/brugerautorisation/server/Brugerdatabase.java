@@ -237,4 +237,22 @@ map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s15
 			brugere.add(b);
 		}
 	}
+
+  public Bruger hentBrugerOffentligt(String brugernavn) {
+    Bruger b = brugernavnTilBruger.get(brugernavn);
+    if (b==null) {
+      // Ukendt bruger - vent lidt for at imødegå brute force angreb
+      try { Thread.sleep((int)(Math.random()*1000));	} catch (Exception ex) { }
+      throw new IllegalArgumentException("Bruger findes ikke");
+    }
+    Bruger off = new Bruger();
+    off.brugernavn = b.brugernavn;
+    off.campusnetId = b.campusnetId;
+    off.efternavn = b.efternavn;
+    off.email = b.email;
+    off.fornavn = b.fornavn;
+    off.sidstAktiv = b.sidstAktiv;
+    off.studeretning = b.studeretning;
+    return off;
+  }
 }

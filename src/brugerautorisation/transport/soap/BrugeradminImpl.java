@@ -55,4 +55,9 @@ public class BrugeradminImpl implements Brugeradmin {
 		db.hentBruger(brugernavn, adgangskode).ekstraFelter.put(feltnavn, værdi);
 		db.gemTilFil(false);
 	}
+
+  @Override
+  public Bruger hentBrugerOffentligt(String brugernavn) {
+		return db.hentBrugerOffentligt(brugernavn);
+  }
 }

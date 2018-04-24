@@ -39,4 +39,12 @@ public interface Brugeradmin
 	 * Aflæser et ekstra felt. Se setEkstraFelt
 	 */
 	@WebMethod Object getEkstraFelt(String brugernavn, String adgangskode, String feltnavn);
+
+	/**
+	 * Henter en brugers offentlige data
+	 * @return et Bruger-objekt med de offentlige data (brugernavn, fornavn, efternavn, email, campusnetId, studieretning, sidst aktiv)
+	 */
+	@WebMethod Bruger hentBrugerOffentligt(String brugernavn);
+
+
 }

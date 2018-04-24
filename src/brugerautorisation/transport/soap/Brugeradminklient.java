@@ -13,11 +13,14 @@ import javax.xml.ws.Service;
  */
 public class Brugeradminklient {
 	public static void main(String[] args) throws MalformedURLException {
-//		URL url = new URL("http://localhost:9901/brugeradmin?wsdl");
-		URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+		URL url = new URL("http://localhost:9901/brugeradmin?wsdl");
+//		URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
 		QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
 		Service service = Service.create(url, qname);
 		Brugeradmin ba = service.getPort(Brugeradmin.class);
+
+		Bruger off = ba.hentBrugerOffentligt("s123456");
+		System.out.println("Fik offentlige data " + Diverse.toString(off));
 
     //ba.sendGlemtAdgangskodeEmail("s123456", "Dette er en test, husk at skifte kode");
 		//ba.ændrAdgangskode("s123456", "kode1xyz", "kode1xyz");
