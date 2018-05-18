@@ -58,7 +58,7 @@ public class BenytBrugerdatabase {
 			System.out.println("3 Lav script der opretter alle brugerne som Linux-brugere");
 			System.out.println("4 Send mail til alle brugere, der ikke har ændret deres kode endnu");
 			System.out.println("5 Tilføj bruger");
-//			System.out.println("6 Slet bruger");
+			System.out.println("6 Slet bruger");
 			System.out.println("9 Gem databasen og stop programmet");
 			System.out.print("Skriv valg: ");
 			int valg = scanner.nextInt();
@@ -119,7 +119,8 @@ public class BenytBrugerdatabase {
         b.efternavn = tastatur.nextLine();
         System.out.print("Email: ");
         b.email = tastatur.nextLine();
-        b.brugernavn = b.email.split("@")[0];
+        System.out.print("Brugernavn: ");
+        b.brugernavn = tastatur.nextLine();
         System.out.print("Studieretning: ");
         b.studeretning = tastatur.nextLine();
         b.adgangskode = "kode"+Integer.toString((int)(Math.random()*Integer.MAX_VALUE), Character.MAX_RADIX);
@@ -127,6 +128,14 @@ public class BenytBrugerdatabase {
 
         db.brugernavnTilBruger.put(b.brugernavn, b);
         System.out.println("Bruger tilføjet: "+Diverse.toString(b));
+			} else
+			if (valg==6) {
+        java.util.Scanner tastatur = new java.util.Scanner(System.in);  // forbered
+        System.out.print("Brugernavn der skal slettes: ");
+        String brugernavn = tastatur.nextLine();
+        Bruger b = db.brugernavnTilBruger.get(brugernavn);
+        db.brugere.remove(b);
+        System.out.println("Bruger fjernet: "+Diverse.toString(b));
 			} else
 			if (valg==9) {
 				break;
