@@ -65,7 +65,7 @@ public class Brugerdatabase implements Serializable {
         if (instans.brugere.size()==0) throw new IllegalStateException("Der blev ikke fundet nogen brugere i filen");
 			} catch (IOException e2) {
 				System.err.println("Deltagerlisten mangler vist. \n\nDu kan oprette den ved at hente\n"
-						+ "https://cn.inside.dtu.dk/cnnet/participants/default.aspx?ElementID=535237&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=false&display=listWith&groupby=rights&interval=10000&search="
+						+ "https://cn.inside.dtu.dk/cnnet/participants/default.aspx?ElementID=590023&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=false&display=listWith&groupby=rights&interval=10000&search="
 						+ "\nog gemme indholdet i filen "+path.toAbsolutePath());
 
 				e2.printStackTrace();

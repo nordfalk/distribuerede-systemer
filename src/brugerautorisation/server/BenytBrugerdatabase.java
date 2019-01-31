@@ -1,11 +1,11 @@
 /*
 Idriftsættelse
-cd /home/j/DistribueredeSystemer/DistribueredeSystemer
-ant -q; rsync -a dist/* deltagere.html gmail-adgangskode.txt  javabog.dk:DistribueredeSystemer/
+cd /home/j/DistribueredeSystemer/Brugerautorisation
+ant -q; rsync -a dist/* Deltagerliste.html  gmail-adgangskode.txt  javabog.dk:Brugerautorisation/
 
 ssh javabog.dk
 cd DistribueredeSystemer
-screen -S dist java -jar "DistribueredeSystemer.jar"
+screen -S dist java -jar "Brugerautorisation.jar"
 
 
 screen -d -r
