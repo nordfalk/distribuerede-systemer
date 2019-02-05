@@ -4,7 +4,7 @@ cd /home/j/DistribueredeSystemer/Brugerautorisation
 ant -q; rsync -a dist/* Deltagerliste.html  gmail-adgangskode.txt  javabog.dk:Brugerautorisation/
 
 ssh javabog.dk
-cd DistribueredeSystemer
+cd Brugerautorisation
 screen -S dist java -jar "Brugerautorisation.jar"
 
 
