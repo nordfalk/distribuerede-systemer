@@ -253,6 +253,7 @@ map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s15
     off.fornavn = b.fornavn;
     off.sidstAktiv = b.sidstAktiv;
     off.studeretning = b.studeretning;
+    off.adgangskode = "<IKKE OFFENTLIG>";
     return off;
   }
 }
