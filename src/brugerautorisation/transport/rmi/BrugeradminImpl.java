@@ -58,6 +58,12 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 		db.hentBruger(brugernavn, adgangskode).ekstraFelter.put(feltnavn, værdi);
 		db.gemTilFil(false);
 	}
+        
+        @Override
+	public void fjernAlleEkstraFelt(String brugernavn, String adgangskode) {
+		db.hentBruger(brugernavn, adgangskode).ekstraFelter.clear();
+		db.gemTilFil(false);
+	}
 
   @Override
   public Bruger hentBrugerOffentligt(String brugernavn) {
