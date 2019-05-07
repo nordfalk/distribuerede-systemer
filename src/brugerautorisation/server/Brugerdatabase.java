@@ -108,6 +108,9 @@ public class Brugerdatabase implements Serializable {
 	}
 
 	public Bruger hentBruger(String brugernavn, String adgangskode) {
+    // forsink lidt for at imødegå brute force angreb
+    try { Thread.sleep((int)(Math.random()*100));	} catch (Exception ex) { }
+
 		Bruger b = brugernavnTilBruger.get(brugernavn);
 		System.out.println("hentBruger "+brugernavn+" gav "+b);
 		if (b!=null && b.adgangskode.equals(adgangskode)) {
@@ -123,6 +126,9 @@ public class Brugerdatabase implements Serializable {
 	}
 
   public Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode) {
+    // forsink lidt for at imødegå brute force angreb
+    try { Thread.sleep((int)(Math.random()*100));	} catch (Exception ex) { }
+
     // Tjek først om brugerens adgangskode allerede ER ændret til nyAdgangskode - der er mange der kommer til at lave kaldet flere gange
 		Bruger b = brugernavnTilBruger.get(brugernavn);
 		System.out.println("ændrAdgangskode "+brugernavn+" fra "+glAdgangskode + " til "+nyAdgangskode+" gav b="+b);
