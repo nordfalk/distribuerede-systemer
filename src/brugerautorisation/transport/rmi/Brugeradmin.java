@@ -42,6 +42,13 @@ public interface Brugeradmin extends java.rmi.Remote {
 	 */
 	Object getEkstraFelt(String brugernavn, String adgangskode, String feltnavn) throws java.rmi.RemoteException;
 
+        /**
+	 * Fjern en brugers ekstrafelter
+	 * @param brugernavn Brugeren det drejer sig om. Adgangskode skal være korrekt, dvs det er ikke muligt at slette felter for brugere, der ikke er logget ind.
+	 * @throws java.rmi.RemoteException
+	 */
+	void fjernAlleEkstraFelt(String brugernavn, String adgangskode) throws java.rmi.RemoteException;
+
 	/**
 	 * Henter en brugers offentlige data
 	 * @return et Bruger-objekt med de offentlige data (brugernavn, fornavn, efternavn, email, campusnetId, studieretning, sidst aktiv)

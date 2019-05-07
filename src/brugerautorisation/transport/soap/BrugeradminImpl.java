@@ -11,12 +11,12 @@ public class BrugeradminImpl implements Brugeradmin {
 
 	@Override
 	public Bruger hentBruger(String brugernavn, String adgangskode) {
-		return db.hentBruger(brugernavn, adgangskode);
+            return db.hentBruger(brugernavn, adgangskode);
 	}
 
 	@Override
 	public Bruger ændrAdgangskode(String brugernavn, String glAdgangskode, String nyAdgangskode) {
-    return db.ændrAdgangskode(brugernavn, glAdgangskode, nyAdgangskode);
+            return db.ændrAdgangskode(brugernavn, glAdgangskode, nyAdgangskode);
 	}
 
 	@Override
@@ -55,9 +55,15 @@ public class BrugeradminImpl implements Brugeradmin {
 		db.hentBruger(brugernavn, adgangskode).ekstraFelter.put(feltnavn, værdi);
 		db.gemTilFil(false);
 	}
+        
+        @Override
+	public void fjernAlleEkstraFelt(String brugernavn, String adgangskode) {
+		db.hentBruger(brugernavn, adgangskode).ekstraFelter.clear();
+		db.gemTilFil(false);
+	}
 
-  @Override
-  public Bruger hentBrugerOffentligt(String brugernavn) {
-		return db.hentBrugerOffentligt(brugernavn);
-  }
+        @Override
+        public Bruger hentBrugerOffentligt(String brugernavn) {
+                      return db.hentBrugerOffentligt(brugernavn);
+        }
 }
