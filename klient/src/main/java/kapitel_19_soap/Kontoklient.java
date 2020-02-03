@@ -10,6 +10,7 @@ import javax.xml.ws.Service;
  *
  * @author j
  */
+@SuppressWarnings("NonAsciiCharacters")
 public class Kontoklient {
 	public static void main(String[] args) throws MalformedURLException {
 //		URL url = new URL("http://ubuntu4.saluton.dk:9901/kontotjeneste?wsdl");

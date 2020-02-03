@@ -3,6 +3,7 @@ package kapitel_19_soap;
 import java.util.ArrayList;
 import javax.jws.WebService;
 
+@SuppressWarnings("NonAsciiCharacters")
 @WebService(endpointInterface = "kapitel_19_soap.KontoI")
 public class KontoImpl { // valgfrit men ikke nødvendigt: implements KontoI
 	private int saldo = 100; // man starter med 100 kroner

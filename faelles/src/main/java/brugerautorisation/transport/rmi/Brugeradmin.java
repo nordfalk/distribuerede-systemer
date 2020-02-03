@@ -2,6 +2,7 @@ package brugerautorisation.transport.rmi;
 
 import brugerautorisation.data.Bruger;
 
+@SuppressWarnings("NonAsciiCharacters")
 public interface Brugeradmin extends java.rmi.Remote {
 	/**
 	 * Henter alle en brugers data
@@ -20,7 +21,7 @@ public interface Brugeradmin extends java.rmi.Remote {
 	 * @param brugernavn Brugeren, som emailen skal sendes til
 	 * @param emne Emnet - teksten DIST: bliver foranstillet i mailen
 	 * @param tekst Brødteksten - teksten 'Sendt fra xxxx ' bliver tilføjet  i mailen
-	 * @throws java.rmi.RemoteException
+	 * @throws java.rmi.RemoteException Hvis der sker en fejl i transport eller på serveren
 	 */
 	void sendEmail(String brugernavn, String adgangskode, String emne, String tekst) throws java.rmi.RemoteException;
 
@@ -31,7 +32,7 @@ public interface Brugeradmin extends java.rmi.Remote {
 	 * @param brugernavn Brugeren det drejer sig om. Adgangskode skal være korrekt, dvs det er ikke muligt at hente felter for brugere, der ikke er logget ind.
 	 * @param feltnavn Navnet på feltet. Brug dit studie- eller gruppenummer som præfix, f.eks. "g22_galgeleg_point"
 	 * @param værdi Værdien er et vilkårligt objekt, f.eks. 223 (Integer) eller "223" (String)
-	 * @throws java.rmi.RemoteException
+	 * @throws java.rmi.RemoteException Hvis der sker en fejl i transport eller på serveren
 	 */
 	void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi) throws java.rmi.RemoteException;
 
@@ -43,7 +44,7 @@ public interface Brugeradmin extends java.rmi.Remote {
         /**
 	 * Fjern en brugers ekstrafelter
 	 * @param brugernavn Brugeren det drejer sig om. Adgangskode skal være korrekt, dvs det er ikke muligt at slette felter for brugere, der ikke er logget ind.
-	 * @throws java.rmi.RemoteException
+	 * @throws java.rmi.RemoteException Hvis der sker en fejl i transport eller på serveren
 	 */
 	void fjernAlleEkstraFelt(String brugernavn, String adgangskode) throws java.rmi.RemoteException;
 

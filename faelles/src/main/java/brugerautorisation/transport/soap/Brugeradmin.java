@@ -2,6 +2,8 @@ package brugerautorisation.transport.soap;
 import brugerautorisation.data.Bruger;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+
+@SuppressWarnings("NonAsciiCharacters")
 @WebService
 public interface Brugeradmin
 {

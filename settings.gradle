@@ -1,3 +1,5 @@
 rootProject.name = 'Brugerautorisation'
 include 'server'
+include 'faelles'
+include 'klient'
 

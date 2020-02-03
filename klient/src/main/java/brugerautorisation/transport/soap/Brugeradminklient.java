@@ -1,7 +1,8 @@
 package brugerautorisation.transport.soap;
 
-import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
+import brugerautorisation.data.Diverse;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.namespace.QName;
