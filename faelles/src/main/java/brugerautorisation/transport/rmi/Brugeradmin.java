@@ -46,7 +46,7 @@ public interface Brugeradmin extends java.rmi.Remote {
 	 * @param brugernavn Brugeren det drejer sig om. Adgangskode skal være korrekt, dvs det er ikke muligt at slette felter for brugere, der ikke er logget ind.
 	 * @throws java.rmi.RemoteException Hvis der sker en fejl i transport eller på serveren
 	 */
-	void fjernAlleEkstraFelt(String brugernavn, String adgangskode) throws java.rmi.RemoteException;
+	void fjernAlleEkstraFelter(String brugernavn, String adgangskode) throws java.rmi.RemoteException;
 
 	/**
 	 * Henter en brugers offentlige data

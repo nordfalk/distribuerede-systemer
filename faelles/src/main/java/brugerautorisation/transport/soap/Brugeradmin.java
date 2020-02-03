@@ -46,7 +46,7 @@ public interface Brugeradmin
 	 * Fjern en brugers ekstrafelter
 	 * @param brugernavn Brugeren det drejer sig om. Adgangskode skal være korrekt, dvs det er ikke muligt at slette felter for brugere, der ikke er logget ind.
 	 */
-	@WebMethod void fjernAlleEkstraFelt(String brugernavn, String adgangskode);
+	@WebMethod void fjernAlleEkstraFelter(String brugernavn, String adgangskode);
 
 	/**
 	 * Henter en brugers offentlige data

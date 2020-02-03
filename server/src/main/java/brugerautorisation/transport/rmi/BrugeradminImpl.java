@@ -60,7 +60,7 @@ public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 	}
         
         @Override
-	public void fjernAlleEkstraFelt(String brugernavn, String adgangskode) {
+	public void fjernAlleEkstraFelter(String brugernavn, String adgangskode) {
 		db.hentBruger(brugernavn, adgangskode).ekstraFelter.clear();
 		db.gemTilFil(false);
 	}

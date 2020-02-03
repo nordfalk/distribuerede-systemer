@@ -28,12 +28,5 @@ public class Brugeradminklient {
         String webside = (String) ba.getEkstraFelt("s123456", "kode1xyz", "webside");
         System.out.println("Brugerens webside er: " + webside);
 
-        //Test af fjern felter
-        ba.fjernAlleEkstraFelt("s123456", "kode1xyz");
-        b = ba.hentBruger("s123456", "kode1xyz");
-        System.out.println("Fik bruger " + b);
-        System.out.println("med data " + Diverse.toString(b));
-        ekstraFelt = ba.getEkstraFelt("s123456", "kode1xyz", "hobby");
-        System.out.println("Brugerens hobby er: " + ekstraFelt);
     }
 }

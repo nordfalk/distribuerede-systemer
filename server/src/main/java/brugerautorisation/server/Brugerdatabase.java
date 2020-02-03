@@ -180,7 +180,7 @@ public class Brugerdatabase implements Serializable {
               .replace("Center for Diplomingeniøruddannelse ", "")
               .replace("diploming. ","").replaceAll("[ \n]+", " ").trim();
 			if (b.studeretning.isEmpty()) b.studeretning = "IT-Økonomi"; // Hvorfor ITØ'ernes er tom ved jeg ikke....
-			if (b.studeretning.startsWith("Tilføjet ")) b.studeretning = b.studeretning.substring(9)+" (tilf)";
+			if (b.studeretning.startsWith("Tilføjet ")) b.studeretning = b.studeretning.substring(9);//+" (tilf)";
 			b.adgangskode = "kode"+Integer.toString((int)(Math.random()*Integer.MAX_VALUE), Character.MAX_RADIX);
 
 			System.out.println("Oprettet:" + Diverse.toString(b));
