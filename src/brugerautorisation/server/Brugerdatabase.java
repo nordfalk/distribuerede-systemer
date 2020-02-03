@@ -65,7 +65,7 @@ public class Brugerdatabase implements Serializable {
         if (instans.brugere.size()==0) throw new IllegalStateException("Der blev ikke fundet nogen brugere i filen");
 			} catch (IOException e2) {
 				System.err.println("Deltagerlisten mangler vist. \n\nDu kan oprette den ved at hente\n"
-						+ "https://cn.inside.dtu.dk/cnnet/participants/default.aspx?ElementID=590023&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=false&display=listWith&groupby=rights&interval=10000&search="
+						+ "https://cn.inside.dtu.dk/cnnet/participants/default.aspx?ElementID=612475&sort=fname&order=ascending&pos=0&lastPos=0&lastDisplay=listWith&cache=false&display=listWith&groupby=rights&interval=10000&search="
 						+ "\nog gemme indholdet i filen "+path.toAbsolutePath());
 
 				e2.printStackTrace();
@@ -171,6 +171,8 @@ public class Brugerdatabase implements Serializable {
 			b.efternavn = td[2].split("class=\"link\">")[2].split("<")[0];
 			b.email = td[4].split("mailto:")[1].split("\"")[0];
 			if (b.email.contains("flhan@dtu.dk") || b.email.contains("phso@dtu.dk")) continue; // drom adm personale
+			if (b.email.contains("jrei@dtu.dk") || b.email.contains("chbu@dtu.dk")) continue;
+			if (b.email.contains("manyb@dtu.dk") || b.email.contains("chbu@dtu.dk")) continue;
 			if (b.email.contains("feni@dtu.dk")) continue; // drom adm personale
 			b.brugernavn = b.email.split("@")[0];
 			b.studeretning = td[5].substring(1).replaceAll("<[^>]+>", " ")
@@ -179,6 +181,7 @@ public class Brugerdatabase implements Serializable {
               .replace("Center for Diplomingeniøruddannelse ", "")
               .replace("diploming. ","").replaceAll("[ \n]+", " ").trim();
 			if (b.studeretning.isEmpty()) b.studeretning = "IT-Økonomi"; // Hvorfor ITØ'ernes er tom ved jeg ikke....
+			if (b.studeretning.startsWith("Tilføjet ")) b.studeretning = b.studeretning.substring(9)+" (tilf)";
 			b.adgangskode = "kode"+Integer.toString((int)(Math.random()*Integer.MAX_VALUE), Character.MAX_RADIX);
 
 			System.out.println("Oprettet:" + Diverse.toString(b));
@@ -187,62 +190,6 @@ public class Brugerdatabase implements Serializable {
 	}
 
 
-
-	public static void indlæsDeltagerlisteFraCampusnetHtml2(String data, ArrayList<Bruger> brugere) {
-		//System.out.println("data="+data);
-		for (String tr : data.split("<div class=\"ui-participant\">")) {
-			String td[] = tr.split("<div class=\"ui-participant-");
-      HashMap<String,String> map = new LinkedHashMap<>();
-      for (String lin : td) {
-        int n = lin.indexOf('"');
-        if (n==-1) continue;
-        String nøgle = lin.substring(0, n);
-        String værdi = lin.substring(n+2).replaceAll("[\n\r ]+", " ");
-        if (nøgle.equals("infobox")) {
-          String[] x = værdi.split("</div>");
-          nøgle = x[0].replaceAll("<.+?>", " ").trim();
-          værdi = x[1];
-        }
-        if (nøgle.equals("img")) {
-          værdi = værdi.split("\"")[1];
-        }
-        String værdi2 = værdi.replaceAll("<.+?>", " ").replaceAll("[ ]+", " ").trim();
-        map.put(nøgle, værdi2);
-      }
-      if (!map.containsKey("name")) continue;
-      System.out.println("map="+map);
-			System.out.flush();
-			/*
-map={img=, name=Jacob Nordfalk, email=jacno@dtu.dk jacno@dtu.dk, additional user-information=jacno, informationbox=id="participantinformation162858">, placeholder=, Brugernavn=jacno, Email=jacno@dtu.dk, Institutter=Center for Diplomingeniøruddannelse}
-map={img=, name=Pia Holm Søeborg, email=phso@dtu.dk phso@dtu.dk, additional user-information=phso, informationbox=id="participantinformation163058">, placeholder=, Brugernavn=phso, Email=phso@dtu.dk, Institutter=Center for Diplomingeniøruddannelse DIPL-Sekretariatet, categorybar=Forfattere (2), sortrow=Sortér efter Fornavn Efternavn Adresse Email}
-map={img=, name=Sune Thomas Bernth Nielsen, email=stbn@dtu.dk stbn@dtu.dk, additional user-information=stbn, informationbox=id="participantinformation179622">, placeholder=, Brugernavn=stbn, Email=stbn@dtu.dk, Adresse=Skodsborggade 17,4 th, 2200 København N, Uddannelse=diploming., Institutter=Center for Diplomingeniøruddannelse}
-map={img=, name=Bhupjit Singh, email=bhsi@dtu.dk bhsi@dtu.dk, additional user-information=bhsi, informationbox=id="participantinformation89428">, placeholder=, Brugernavn=bhsi, Email=bhsi@dtu.dk, Institutter=Center for Diplomingeniøruddannelse, categorybar=Brugere (115), sortrow=Sortér efter Fornavn Efternavn Adresse Email}
-map={img=, name=Giuseppe Abbate, email=s153516@student.dtu.dk s153516@student.dtu.dk, additional user-information=s153516, informationbox=id="participantinformation220426">, placeholder=, Brugernavn=s153516, Email=s153516@student.dtu.dk, Uddannelse=diploming. Softwaretek.}
-map={img=, name=Burim Abdulahi, email=s143591@student.dtu.dk s143591@student.dtu.dk, additional user-information=s143591, informationbox=id="participantinformation199640">, placeholder=, Brugernavn=s143591, Email=s143591@student.dtu.dk, Uddannelse=diploming. Softwaretek.}
-map={img=, name=Ibrahim Al-Bacha, email=s118016@student.dtu.dk s118016@student.dtu.dk, additional user-information=s118016, informationbox=id="participantinformation182196">, placeholder=, Brugernavn=s118016, Email=s118016@student.dtu.dk, Uddannelse=diploming. Softwaretek.}
-map={img=, name=Amer Ali, email=s145224@student.dtu.dk s145224@student.dtu.dk, additional user-information=s145224, informationbox=id="participantinformation203190">, placeholder=, Brugernavn=s145224, Email=s145224@student.dtu.dk, Uddannelse=diploming. Softwaretek.}
-map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s153317@student.dtu.dk, additional user-information=s153317, informationbox=id="participantinformation220040">, placeholder=, Brugernavn=s153317, Email=s153317@student.dtu.dk, Uddannelse=diploming. Softwaretek.}
-			*/
-			Bruger b = new Bruger();
-			b.fornavn = map.get("name");
-      int n = b.fornavn.indexOf(" ");
-			b.efternavn = b.fornavn.substring(n+1);
-      b.fornavn = b.fornavn.substring(0,n);
-			b.email = map.get("Email");
-			if (b.email.contains("flhan@dtu.dk") || b.email.contains("phso@dtu.dk")) continue; // drom adm personale
-			b.brugernavn = b.email.split("@")[0];
-
-      b.studeretning = map.get("Uddannelse");
-      b.ekstraFelter.put("webside", map.get("img"));
-			if (b.studeretning == null) b.studeretning = "Underviser";
-      else if (b.studeretning.isEmpty()) b.studeretning = "IT-Økonomi"; // Hvorfor ITØ'ernes er tom ved jeg ikke....
-      else b.studeretning = b.studeretning.replace("diploming. ","").replaceAll("[ \n]+", " ").trim();
-			b.adgangskode = "kode"+Integer.toString((int)(Math.random()*Integer.MAX_VALUE), Character.MAX_RADIX);
-
-			System.out.println("Oprettet:" + Diverse.toString(b));
-			brugere.add(b);
-		}
-	}
 
   public Bruger hentBrugerOffentligt(String brugernavn) {
     Bruger b = brugernavnTilBruger.get(brugernavn);
