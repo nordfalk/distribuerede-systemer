@@ -16,8 +16,6 @@ package brugerautorisation.server;
 import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
 import java.io.IOException;
-import java.io.StringReader;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,7 +37,7 @@ public class BenytBrugerdatabase {
 		System.out.println();
 		System.out.println("Du er ved at starte serveren for brugerautorisationsmodulet");
 		System.out.println();
-		System.out.print("Er det det du ønsker? (tryk 'n' for at afbryde)");
+		System.out.println("Er det det du ønsker? (tryk 'n' for at afbryde)");
     if (scanner.nextLine().toLowerCase().startsWith("n")) {
   		System.out.println("OK - afslutter programmet");
       System.exit(0);

@@ -7,8 +7,8 @@ import java.rmi.Naming;
 public class Brugeradminklient {
 
     public static void main(String[] arg) throws Exception {
-	Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://localhost/brugeradmin");
-        //Brugeradmin ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
+	    //Brugeradmin ba =(Brugeradmin) Naming.lookup("rmi://localhost/brugeradmin");
+        Brugeradmin ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
 
         Bruger off = ba.hentBrugerOffentligt("s123456");
         System.out.println("Fik offentlige data " + Diverse.toString(off));
