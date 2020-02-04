@@ -26,7 +26,8 @@ public class SendMail {
 
   public static void sendMail(String emne, String tekst, String modtagere) throws MessagingException {
     // Husk først at sænke sikkerheden på https://www.google.com/settings/security/lesssecureapps
-    final String afsender = "android.ihk@gmail.com";
+    // Eller bruge en 'Genereret app-adgangskode' - se https://support.google.com/accounts/answer/185833?hl=da
+    final String afsender = "jacob.nordfalk@gmail.com";
     System.out.println("sendMail " + emne + " " + modtagere + " " + tekst.replace('\n', ' '));
     Properties props = new Properties();
     props.put("mail.smtp.auth", "true");
@@ -34,7 +35,7 @@ public class SendMail {
     props.put("mail.smtp.host", "smtp.gmail.com");
     props.put("mail.smtp.port", "587");
 
-    // FØLGENDE KRÆVER JavaMail-BIBLIOTEKET (det er med som standard i Netbeans)
+    // FØLGENDE KRÆVER JavaMail-BIBLIOTEKET
     // fjern evt koden, da du ikke skal sende mail fra din PC (det gør serveren jo)
 
     Session session = Session.getInstance(props, new Authenticator() {
@@ -59,4 +60,7 @@ public class SendMail {
     Transport.send(message);
   }
 
+  public static void main(String[] args) throws MessagingException {
+    sendMail("Test af Genereret app-adgangskode", "test", "jacno@dtu.dk");
+  }
 }
