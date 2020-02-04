@@ -12,22 +12,25 @@ import javax.xml.ws.Service;
  */
 @SuppressWarnings("NonAsciiCharacters")
 public class Kontoklient {
-	public static void main(String[] args) throws MalformedURLException {
+	public static void main(String[] args) throws Exception {
 //		URL url = new URL("http://ubuntu4.saluton.dk:9901/kontotjeneste?wsdl");
 		URL url = new URL("http://localhost:9901/kontotjeneste?wsdl");
 		QName qname = new QName("http://kapitel_19_soap/", "KontoImplService");
 		Service service = Service.create(url, qname);
 		KontoI k = service.getPort(KontoI.class);
 
-    k.overførsel(100);
-    k.overførsel(50);
+		k.overførsel(100);
+		k.overførsel(50);
 		System.out.println( "Saldo er: "+ k.saldo() );
 		k.overførsel(-200);
 		k.overførsel(51);
-		System.out.println( "Saldo er: "+ k.saldo() );
+		System.out.println( "Saldo ved slut er: "+ k.saldo() );
 		ArrayList<String> bevægelser = k.bevægelser();
 
 		System.out.println( "Bevægelser er: "+ bevægelser );
+
+		Thread.sleep(10000);
+		System.out.println( "Saldo efter 10 sekunder: "+ k.saldo() );
 	}
 }
 /*

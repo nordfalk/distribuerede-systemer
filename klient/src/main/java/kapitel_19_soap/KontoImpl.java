@@ -14,18 +14,18 @@ public class KontoImpl { // valgfrit men ikke nødvendigt: implements KontoI
 		saldo = saldo + kroner;
 		String s = "Overførsel på "+kroner+" kr. Ny saldo er "+saldo+" kr.";
 		bevægelser.add(s);
-		System.out.println(s);
+		System.out.println(Thread.currentThread() + ": " +s);
 	}
 
 	public int saldo()
 	{
-		System.out.println("Der spørges om saldoen. Den er "+saldo+" kr.");
+		System.out.println(Thread.currentThread() + ": Der spørges om saldoen. Den er "+saldo+" kr.");
 		return saldo;
 	}
 
 	public ArrayList<String> bevægelser()
 	{
-		System.out.println("Der spørges på alle bevægelser.");
+		System.out.println(Thread.currentThread() + ": Der spørges på alle bevægelser.");
 		return bevægelser;
 	}
 }

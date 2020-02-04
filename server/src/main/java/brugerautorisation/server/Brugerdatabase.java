@@ -51,7 +51,7 @@ public class Brugerdatabase implements Serializable {
 				indlæsDeltagerlisteFraCampusnetHtml(data, instans.brugere);
         Bruger b = new Bruger();
         b.campusnetId = "ukendt";
-        b.ekstraFelter.put("webside", "http://www.diplom.dtu.dk/");
+        b.ekstraFelter.put("webside", "https://www.diplom.dtu.dk/");
         b.fornavn = "Dennis";
         b.efternavn = "Demostudent";
         b.email = "s123456@student.dtu.dk";
@@ -129,17 +129,19 @@ public class Brugerdatabase implements Serializable {
     try { Thread.sleep((int)(Math.random()*100));	} catch (Exception ex) { }
 
     // Tjek først om brugerens adgangskode allerede ER ændret til nyAdgangskode - der er mange der kommer til at lave kaldet flere gange
-		Bruger b = brugernavnTilBruger.get(brugernavn);
-		System.out.println("ændrAdgangskode "+brugernavn+" fra "+glAdgangskode + " til "+nyAdgangskode+" gav b="+b);
-		if (b!=null && !b.adgangskode.equals(glAdgangskode) && b.adgangskode.equals(nyAdgangskode)) {
+	Bruger b = brugernavnTilBruger.get(brugernavn);
+	System.out.println("ændrAdgangskode "+brugernavn+" fra "+glAdgangskode + " til "+nyAdgangskode+" gav b="+b);
+	if (b!=null && !b.adgangskode.equals(glAdgangskode) && b.adgangskode.equals(nyAdgangskode)) {
       throw new IllegalStateException("Adgangskoden ER allerede ændret til "+nyAdgangskode+". Hvorfor vil du ændre den til det samme som den allerede er? (Vink: Kald kun ændrAdgangskode én gang :-)");
     }
     b = hentBruger(brugernavn, glAdgangskode); // Lav derefter det almindelige adgangskodetjek
 
     if (nyAdgangskode.isEmpty()) throw new IllegalArgumentException("Ny adgangskode må ikke være tom");
     if (nyAdgangskode.contains("\"") || nyAdgangskode.contains("'")) throw new IllegalArgumentException("Ugyldige tegn i ny adgangskode");
-		b.adgangskode = nyAdgangskode;
-		gemTilFil(false);
+    if ("s123456".equals(brugernavn)) throw new IllegalArgumentException("Det er altså tarveligt at ændre demobrugerens adgangskode... for så virker det ikke for de andre studenter!");
+
+	b.adgangskode = nyAdgangskode;
+	gemTilFil(false);
     return b;
   }
 
