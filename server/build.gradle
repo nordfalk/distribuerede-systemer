@@ -16,11 +16,11 @@ repositories {
 dependencies {
     compile project(path: ':faelles')
 
-    // https://mvnrepository.com/artifact/javax.xml.ws/jaxws-api
+    // SOAP - Java API for XML Web Services
     compile group: 'javax.xml.ws', name: 'jaxws-api', version: '2.3.1'
 
+    // JavaMail
     compile group: 'com.sun.xml.ws', name: 'jaxws-rt', version: '2.3.2'
-
     compile 'com.sun.mail:android-mail:1.5.5'
     //compile 'com.sun.mail:android-activation:1.5.5'
 

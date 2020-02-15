@@ -97,7 +97,7 @@ public class BenytBrugerdatabase {
 
 				for (Bruger b : mglBru) {
 					SendMail.sendMail("DIST: Din adgangskode skal skiftes",
-							"Kære "+b.fornavn+"\n\nDu skal skifte adgangskoden som en del af kurset i Distribuerede Systemer."
+							"Kære "+b.fornavn+"\n\nDu skal skifte adgangskoden som en del af kurset 62597 Backendudvikling, drift og distribuerede systemer."
 							+"\n\nDit brugernavn er "+b.brugernavn+" og din midlertidige adgangskode er: "+b.adgangskode
 							+"\n\nSe hvordan du skifter koden på https://goo.gl/26pBG9 \n"
 							+"\n\n"+forklarendeTekst
