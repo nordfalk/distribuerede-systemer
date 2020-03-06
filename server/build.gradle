@@ -27,12 +27,14 @@ dependencies {
     //testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-// til at bygge JAR-fil med main-metode
+// til at bygge artefaktet server/build/libs/server-1.0-SNAPSHOT.jar
 jar {
+    // JAR-filen har en main-metode
     manifest {
         attributes "Main-Class": "brugerautorisation.server.BenytBrugerdatabase"
     }
 
+    // Lav en 'fat JAR' hvor alle biblioteker er pakket med i JAR-filen
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }

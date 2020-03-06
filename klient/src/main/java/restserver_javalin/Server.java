@@ -30,20 +30,18 @@ public class Server {
         app.exception(Exception.class, (e, ctx) -> {
             e.printStackTrace();
         });
-        app.get("/", ctx -> ctx.contentType("text/html; charset=utf-8")
-                .result("<html><body>Velkommen.<br/>\n<br/>\n" +
-                                "Du kan sige <a href='hej'>hej</a> eller udfylde en <a href='formular'>formular</a><br/>\n<br/>\n" +
-                                "Du kunne også spørge til <a href='bruger/s123456'>en bruger</a>" +
-                                "... eventuelt med <a href='bruger/s123456?adgangskode=kode1xyz'>adgangskode</a><br/>\n<br/>\n" +
-                                "Eller sendGlemtAdgangskodeEmail til <form method=post action=sendGlemtAdgangskodeEmail>" +
-                                "brugernavn <input name=brugernavn type=text> med følgetekst: <input name=foelgetekst type=text value='Hej fra Javalin'><input type=submit></form></form>"
-                        ));
-        app.get("/hej", ctx -> ctx.result("Hejsa, godt at møde dig!"));
+        app.config.addStaticFiles("webside");
+
+        // Serverside gemererede websider
+        app.get("/prut", ctx -> ctx.status(404).result("Ups, der kom en...!").contentType("text/html"));
         app.get("/formular", ctx -> formular(ctx));
 
-        app.get("/bruger/:brugernavn", ctx -> bruger(ctx));
-        app.post("/sendGlemtAdgangskodeEmail", ctx -> sendGlemtAdgangskodeEmail(ctx));
-        app.post("/bruger/:brugernavn/sendGlemtAdgangskodeEmail", ctx -> sendGlemtAdgangskodeEmail(ctx));
+        // REST endpoints
+        app.config.enableCorsForAllOrigins();
+        app.get("/rest/hej", ctx -> ctx.result("Hejsa, godt at møde dig!"));
+        app.get("/rest/hej/:fornavn", ctx -> ctx.result("Hej "+ctx.queryParam("fornavn")+", godt at møde dig!"));
+        app.get("/rest/bruger/:brugernavn", ctx -> bruger(ctx));
+        app.post("/rest/sendGlemtAdgangskodeEmail", ctx -> sendGlemtAdgangskodeEmail(ctx));
     }
 
     private static void formular(Context ctx) {
@@ -76,6 +74,7 @@ public class Server {
         String følgetekst = ctx.formParam("foelgetekst");
         if (brugernavn==null) brugernavn = ctx.queryParam("brugernavn");
         ba.sendGlemtAdgangskodeEmail(brugernavn, følgetekst);
+        ctx.result("Der blev sendt en mail til "+brugernavn+" med teksten "+følgetekst);
     }
 
 }
