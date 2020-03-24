@@ -39,7 +39,7 @@ public class Server {
         // REST endpoints
         app.config.enableCorsForAllOrigins();
         app.get("/rest/hej", ctx -> ctx.result("Hejsa, godt at møde dig!"));
-        app.get("/rest/hej/:fornavn", ctx -> ctx.result("Hej "+ctx.queryParam("fornavn")+", godt at møde dig!"));
+        app.get("/rest/hej/:fornavn", ctx -> ctx.result("Hej "+ctx.pathParam("fornavn")+", godt at møde dig!"));
         app.get("/rest/bruger/:brugernavn", ctx -> bruger(ctx));
         app.post("/rest/sendGlemtAdgangskodeEmail", ctx -> sendGlemtAdgangskodeEmail(ctx));
     }
