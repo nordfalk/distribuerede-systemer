@@ -38,3 +38,16 @@ dependencies {
 
     //testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+
+jar {
+    // Hvis JAR-filen skal have specificeret en main-metode så man kan starte den med java -jar klient.jar
+    manifest {
+        attributes "Main-Class": "brugerautorisation.transport.rmi.Brugeradminklient"
+    }
+
+    // Lav en 'fat JAR' hvor alle biblioteker er pakket med i JAR-filen
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
