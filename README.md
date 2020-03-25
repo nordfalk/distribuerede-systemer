@@ -35,7 +35,7 @@ docker run -p 8080:8080 -t -i brugeraut
 ### Førstegangs forberedelse
 Følg https://cloud.google.com/run/docs/quickstarts/build-and-deploy
 
-### Engangskald til at sætte hvor kørslerne udføres
+### Evt.: Engangskald til at sætte hvor kørslerne udføres
 gcloud config set run/region europe-north1
 
 ### Læg i drift / upload til Dockerbillede til Google Cloud Run
@@ -43,6 +43,10 @@ gcloud builds submit --tag gcr.io/MITPROJEKT/brugeraut
 gcloud run deploy --image gcr.io/MITPROJEKT/brugeraut --platform managed --allow-unauthenticated brugeraut
 
 
-F.eks.
+#### Eksempel
+Jacob har f.eks. kørt følgende og og nu ligger den på https://brugeraut-6dl4uoo23q-lz.a.run.app
+
 gcloud builds submit --tag gcr.io/nitrogensensor/brugeraut && \
 gcloud run deploy --image gcr.io/nitrogensensor/brugeraut --platform managed --allow-unauthenticated brugeraut
+
+

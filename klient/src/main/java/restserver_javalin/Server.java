@@ -27,9 +27,12 @@ public class Server {
         app.before(ctx -> {
             System.out.println("Javalin Server fik "+ctx.method()+" på " +ctx.url()+ " med query "+ctx.queryParamMap()+ " og form " +ctx.formParamMap());
         });
+        /*
         app.exception(Exception.class, (e, ctx) -> {
             e.printStackTrace();
+            ctx.status((HttpStatus.INTERNAL_SERVER_ERROR_500); // husk at sætte status - ellers giver javalin 200 Found tilbage.
         });
+         */
         app.config.addStaticFiles("webside");
 
         // Serverside gemererede websider
