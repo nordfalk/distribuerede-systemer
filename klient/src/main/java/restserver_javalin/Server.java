@@ -5,6 +5,8 @@ import brugerautorisation.transport.rmi.Brugeradmin;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.rmi.Naming;
 
 public class Server {
@@ -41,7 +43,8 @@ public class Server {
 
         // REST endpoints
         app.config.enableCorsForAllOrigins();
-        app.get("/rest/hej", ctx -> ctx.result("Hejsa, godt at møde dig!"));
+        app.get("/rest/hej", ctx -> ctx.result("Hejsa, godt at møde dig!"+new File(".").getAbsolutePath()));
+        app.get("/rest/billede", ctx -> ctx.result(new FileInputStream("billede.jpg")).contentType("image/jpg"));
         app.get("/rest/hej/:fornavn", ctx -> ctx.result("Hej "+ctx.pathParam("fornavn")+", godt at møde dig!"));
         app.get("/rest/bruger/:brugernavn", ctx -> bruger(ctx));
         app.post("/rest/sendGlemtAdgangskodeEmail", ctx -> sendGlemtAdgangskodeEmail(ctx));
