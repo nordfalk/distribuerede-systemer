@@ -19,7 +19,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 /**
- * Sender en mail. Kræver JavaMail
+ * Sender en mail. Kræver JavaMail.
+ * En anden mulighed er at bruge f.eks. https://documentation.mailgun.com/en/latest/quickstart-sending.html#send-via-api
  * @author j
  */
 public class SendMail {

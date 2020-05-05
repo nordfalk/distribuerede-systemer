@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id "io.swagger.core.v3.swagger-gradle-plugin" version "2.1.2"
+}
+
+version 'unspecified'
+
+//sourceCompatibility = 1.8
+
+compileJava.options.encoding = "UTF-8"
+//compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(path: ':faelles')
+
+    // JSON simpel parser
+    compile group: 'org.json', name: 'json', version: '20180813'
+
+
+    // REST-server: Javalin
+    compile 'io.javalin:javalin:3.7.0'
+    compile 'org.slf4j:slf4j-simple:1.7.28'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.10.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.10.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.10.3'
+    compile 'com.googlecode.json-simple:json-simple:1.1'
+    compile 'org.json:json:20190722'
+    compile 'com.google.code.gson:gson:2.8.6'
+    compile 'org.webjars.npm:redoc:2.0.0-rc.2'
+    compile 'org.webjars.npm:js-tokens:3.0.0'
+
+    compile 'io.javalin:javalin:3.7.0'
+    compile "org.slf4j:slf4j-simple:1.7.28" // Nødvendig til javalin
+    // JSON-parser Jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+
+
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.10.1'
+    compile 'cc.vileda:kotlin-openapi3-dsl:0.20.2'
+    compile 'io.swagger.core.v3:swagger-core:2.0.9'
+    compile 'io.swagger.core.v3:swagger-models:2.0.9'
+    compile 'org.webjars:swagger-ui:3.24.3'
+    //compile 'org.webjars.npm:redoc:2.0.0-rc.2'
+    compile 'io.github.classgraph:classgraph:4.8.34'
+    //testCompile group: 'junit', name: 'junit', version: '4.12'
+}

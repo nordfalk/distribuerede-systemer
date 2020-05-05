@@ -1,0 +1,41 @@
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>En webside til brugerautorisationsmodulet</title>
+</head>
+<body>
+<h2>Velkommen til brugerautorisationsmodulet</h2>
+
+<h3>Serverside gemererede websider</h3>
+
+Du kan <a href='prut'>slå en prut</a> eller udfylde en <a href='formular'>formular</a><br/>
+<br/>
+
+<h3>REST endpoints</h3>
+
+Du sige <a href='rest/hej'>hej</a> eller <a href='rest/hej/Jacob'>hilse på en bestemt</a><br/>
+<br/>
+
+Du kunne også spørge til <a href='rest/bruger/s123456'>en bruger</a><br/>
+... eventuelt med <a href='rest/bruger/s123456?adgangskode=kode1xyz'>adgangskode</a><br/>
+<br/>
+Eller send en Glemt Adgangskode Email til <form method=post action=rest/sendGlemtAdgangskodeEmail><br/>
+    brugernavn <input name=brugernavn type=text> <br/>
+    med følgetekst: <input name=foelgetekst type=text value='Hej fra Javalin'><br/>
+    <input type=submit></form></form><br/>
+
+
+
+<h3>Demo af Javascript klientkode</h3>
+
+
+<input id ="jsknap_hej" type="button" value="Sig 'hej'" /><br/>
+<br/>
+<div id="js_output">(her skrives noget fra Javascript)</div><br/>
+
+<input id="jsinput_brugernavn" type="text" value="s123456" /><input id ="jsknap_info" type="button" value="Vis info" /><br/>
+
+<script src="klientkode.js"></script>
+
+</body>
+</html>
